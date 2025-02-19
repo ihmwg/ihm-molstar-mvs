@@ -1,0 +1,19 @@
+name: test actions permission
+
+on: 
+  push:
+    branches: [ "test_actions" ] 
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check contents
+        run: | 
+          ls -la
+          echo "IM BEING RUN! yay!"
+
