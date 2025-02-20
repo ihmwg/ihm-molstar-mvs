@@ -7,11 +7,6 @@ ihm-molstar-mvs
 
 This repository contains utilities that support data-driven visualization of integrative structures through Molstar using MolViewSpec.
 
-### Copyright
-
-Copyright (c) 2025, Berkeley MSSE: Patrick Neal, Cynthia Perez, and Sahil Patil
-
-
 #### Acknowledgements
  
 Project based on the 
