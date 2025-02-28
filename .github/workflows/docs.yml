@@ -4,15 +4,46 @@ on:
   push:
     branches: [main_from_berkeley]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  pages:
+  build:
     runs-on: ubuntu-latest
 
     steps:
         - uses: actions/checkout@v3
+        - uses: actions/setup-python@v4
+          with: 
+              python-version: '3.10'
 
         - name: Install Sphinx dependencies
           run: pip install sphinx sphinx_design sphinx_copybutton pydata_sphinx_theme
 
+        - name: Install package
+          run: pip install . 
+
         - name: Build html
           run: cd docs && make html && ls -la
+
+        - name: Publish
+          uses: actions/upload-pages-artifact@v2
+          with:
+            path: docs/_build/html
+
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: 
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+
