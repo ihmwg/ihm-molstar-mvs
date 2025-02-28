@@ -15,4 +15,4 @@ jobs:
           run: pip install sphinx sphinx_design sphinx_copybutton pydata_sphinx_theme
 
         - name: Build html
-          run: cd docs && make && ls
+          run: cd docs && make html && ls -la
