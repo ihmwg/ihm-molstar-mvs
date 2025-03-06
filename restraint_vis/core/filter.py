@@ -2,6 +2,8 @@
 Tools for filtering restraint table
 """
 
+from typing import Optional, List
+
 from restraint_vis.utils.general import restraint_type_to_operator
 
 import numpy as np
@@ -25,7 +27,7 @@ def first_n(df: pd.DataFrame, n: int=5) -> pd.DataFrame:
     """
     return df.head(5)
 
-def random_sample(df: pd.DataFrame, n: int=100, random_state: Optional[Int]=None) -> pd.DataFrame:
+def random_sample(df: pd.DataFrame, n: int=100, random_state: Optional[int]=None) -> pd.DataFrame:
     """
     Randomly rample n restraints
 
