@@ -27,6 +27,7 @@ def visualize_macromolecule(structure, # molviewspec scene builder
     Parameters
     ----------
     structure : mvs.Structure, the structure to visualize
+    cif: parsed cif container from pymmcif
     color: str, the color to make the macromolecule
 
         one of:
