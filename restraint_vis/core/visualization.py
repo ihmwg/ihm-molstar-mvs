@@ -21,7 +21,7 @@ def visualize_macromolecule(structure, # molviewspec scene builder
                             color: str="chains",
                             representation: str="cartoon",
                             ): 
-    f"""
+    """
     Visualize the macromolecule
 
     Parameters
