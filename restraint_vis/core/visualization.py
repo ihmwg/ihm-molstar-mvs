@@ -21,21 +21,24 @@ def visualize_macromolecule(structure, # molviewspec scene builder
                             color: str="chains",
                             representation: str="cartoon",
                             ): 
-    """
+    f"""
     Visualize the macromolecule
 
     Parameters
     ----------
-    structure : mvs.Structure, The structure to visualize
-    color: str | Dict[str, str], the color to make the macromolecule
+    structure : mvs.Structure, the structure to visualize
+    color: str, the color to make the macromolecule
 
-        string options:
+        one of:
             'chains' - color each chain a unique color
 
             a hex color code - a valid hex color code
 
-            CSS4 color names - any of the CSS4 color names from matplotlib
-                such as 'red', 'grey', ''
+            color name - one of {list(color_utils.CSS4_COLORS.keys())}
+
+    representation: str="cartoon", representation of the macromolecule
+
+
     Raises
     ______
         ValueError: color not found
