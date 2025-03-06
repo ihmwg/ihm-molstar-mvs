@@ -33,17 +33,18 @@ jobs:
           with:
             path: docs/_build/html
 
+# Deployment not enabled from main-from-berkeley branch
+# but want to keep generating docs for testing
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    environment: 
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: 
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy pages
-        id: deployment
-        uses: actions/deploy-pages@v3
+#    steps:
+#      - name: Deploy pages
+#        id: deployment
+#        uses: actions/deploy-pages@v3
 
 
