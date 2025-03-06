@@ -31,10 +31,8 @@ def visualize_macromolecule(structure, # molviewspec scene builder
 
         one of:
             'chains' - color each chain a unique color
+            a hex color code, or color name (parsed by :func:`restraint_vis.utils.color_utils.get_color`)
 
-            a hex color code - a valid hex color code
-
-            color name - one of {list(color_utils.CSS4_COLORS.keys())}
 
     representation: str="cartoon", representation of the macromolecule
 
@@ -89,7 +87,7 @@ def visualize_restraint(structure,
                         focus: bool=True,
                         ):
 
-    f"""
+    """
     Visualize a restraint
 
     Parameters
