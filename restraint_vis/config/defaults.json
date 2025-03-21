@@ -1,0 +1,62 @@
+{
+	"visualize_macromolecule": {
+		"default": {
+
+			"color_params" : {
+				"color": "white",
+				"custom": {
+					"molstar_use_default_coloring": true
+				}
+			},
+
+                        "representation_params" : {
+				"type": "cartoon"
+			}
+		}
+	},
+
+	"visualize_restraint": {
+		"default": {
+			"color_params": {
+				"custom": {
+					"molstar_color_theme_name": "element-symbol"
+				}
+			},
+			"representation_params": {
+				"type": "ball_and_stick",
+				"size_factor": 0.7
+			},
+			"tube_params": {
+				"radius": 0.1,
+				"dash_length": 0.1,
+				"color": "black",
+			        "tooltip": "Solved Distance: {{{{distance}}}}, Restraint Distance: {restraint_type_symbol}{distance}"
+			},
+			"distance_params": null,
+
+			"focus": true
+		},
+
+
+		"violated": {
+			"color_params": {
+				"color": "red",
+				"custom": null
+			},
+			"tube_params": {
+				"color": "red"
+			}
+		},
+
+		"compliant": {
+			"color_params": {
+				"color": "green",
+				"custom": null
+			},
+			"tube_params": {
+				"color": "green"
+			}
+		}
+	}
+}
+

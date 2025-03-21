@@ -2,90 +2,79 @@
 Underlying functions for visualizing with molviewspec
 """
 
-from typing import Dict
+from typing import Dict, Optional
 
 from restraint_vis.utils import color_utils
 from restraint_vis.utils.general import RESTRAINT_TYPE_TO_SYMBOL, restraint_type_to_symbol
+from restraint_vis.config import apply_style_defaults, DEFAULT
 
 import molviewspec as mvs
 from molviewspec.nodes import ComponentExpression
 import pandas as pd
+import json
+from pathlib import Path
+
 
 
 # will prob to refactor this later,
 # cif parameter only used if color=chains
 # so prob would want fix that later
+@apply_style_defaults
 def visualize_macromolecule(structure, # molviewspec scene builder
                             cif,       # cif file info
 
-                            color: str="chains",
-                            representation: str="cartoon",
+                            color_params: Optional[Dict[str, str]]=DEFAULT,
+                            representation_params: Optional[Dict[str, str]]=DEFAULT,
+                            sub_style: str="default"
                             ): 
     """
     Visualize the macromolecule
 
     Parameters
     ----------
-    structure : mvs.Structure, the structure to visualize
-    cif: parsed cif container from pymmcif
-    color: str, the color to make the macromolecule
+    structure : mvs.Structure, The structure to visualize
+    color:  the color to make the macromolecule
 
-        one of:
+        string options:
             'chains' - color each chain a unique color
-            a hex color code, or color name (parsed by :func:`restraint_vis.utils.color_utils.get_color`)
 
+            a hex color code - a valid hex color code
 
-    representation: str="cartoon", representation of the macromolecule
-
-
+            CSS4 color names - any of the CSS4 color names from matplotlib
+                such as 'red', 'grey', ''
     Raises
     ______
         ValueError: color not found
     """
 
-
     # Chains
-    if color == "chains":
-        chain_info = cif.getObj("struct_asym")
-        id_col_index = chain_info.getAttributeIndexDict()["id"]
-        chains = chain_info.getColumn(id_col_index)
-
-        for chain, hex_color in zip(chains, color_utils.get_n_colors(len(chains))):
-            structure.component(selector=ComponentExpression(label_asym_id=chain)).representation(type=representation).color(color=hex_color)
-
-
-    # otherwise, try to get from matplotlib
-    else:
-        hex_color = color_utils.get_color(color)
-        polymer = structure.component(selector="polymer").representation(type=representation).color(hex_color)
+    structure.component(selector="polymer").representation(**representation_params).color(**color_params)
 
 
 # TODO: feels clunky to use, think about improvements
 # do we need some abstraction/ shorthand or are we fine
 # with a large argument list
+@apply_style_defaults
 def visualize_restraint(structure,
 
-                        start_asym_id: str | int, 
+                        start_asym_id: str|int, 
                         start_seq_id: int, 
 
-                        end_asym_id: str | int,
+                        end_asym_id: str|int,
                         end_seq_id: int, 
 
                         distance: float,
                         restraint_type: str, 
 
-                        representation: str="ball_and_stick",
-                        residue_color: str="red", 
                         start_atom_id: str="CA", end_atom_id: str="CA",
+                        representation_params: Optional[Dict[str, str]]=DEFAULT,
+                        color_params: Optional[Dict[str, str]]=DEFAULT,
+                        distance_params: Optional[Dict[str, str]]=DEFAULT,
+                        tube_params: Optional[Dict[str, str]]=DEFAULT,
 
-                        radius: float=0.1, 
-                        dash_length: float=0.1,
-                        line_color=None,
+                        sub_style="default",
 
-                        label_template="Solved Distance: {{{{distance}}}}, Restraint Distance: {restraint_symbol}{distance}",
-                        label_color=None,
-
-                        focus: bool=True,
+                        focus: Optional[bool]=True,
                         ):
 
     """
@@ -122,7 +111,6 @@ def visualize_restraint(structure,
         ValueError: color not found
     """
 
-
     # TODO: Cynthia's parser already handles this
     # decide if we should check twice or not
     if start_atom_id == ".":
@@ -130,19 +118,6 @@ def visualize_restraint(structure,
 
     if end_atom_id == ".":
         end_atom_id = "CA"
-
-    residue_hex_color = color_utils.get_color(residue_color)
-
-    if label_color is None:
-        label_hex_color = residue_hex_color
-    else:
-        label_hex_color = color_utils.get_color(label_color)
-
-    if line_color is None:
-        line_hex_color = residue_hex_color
-    else:
-        line_hex_color = color_utils.get_color(line_color)
-
 
     start_residue = ComponentExpression(label_asym_id=start_asym_id,
                                        beg_label_seq_id=start_seq_id,
@@ -162,22 +137,28 @@ def visualize_restraint(structure,
                                        end_label_seq_id=end_seq_id,
                                        label_atom_id=end_atom_id)
 
-
-
     start_component = structure.component(selector=start_residue)
-    start_component.representation(type=representation).color(color=residue_hex_color)
+    start_component.representation(**representation_params).color(**color_params)
 
     end_component = structure.component(selector=end_residue)
-    end_component.representation(type=representation).color(color=residue_hex_color)
+    end_component.representation(**representation_params).color(**color_params)
 
-    res = structure.primitives().distance(
-            start=start_atom,
-            end=end_atom,
-            color=line_hex_color,
-            radius=radius,
-            dash_length=dash_length,
-            label_template=label_template.format(restraint_symbol=restraint_type_to_symbol(restraint_type), distance=distance),
-            label_color=label_hex_color)
+    if distance_params is not None:
+        if "tooltip" in distance_params:
+            distance_params["tooltip"] = distance_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
+
+        res = structure.primitives().distance(
+                start=start_atom,
+                end=end_atom,
+                **distance_params)
+
+    if tube_params is not None:
+        if "tooltip" in tube_params:
+            tube_params["tooltip"] = tube_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
+        res = structure.primitives().tube(
+                start=start_atom,
+                end=end_atom,
+                **tube_params)
 
     if focus:
         res.focus()
