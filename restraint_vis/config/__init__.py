@@ -63,15 +63,7 @@ def apply_style_defaults(func):
         user = _style.get(func.__name__, {}).get("default", {})
         sub_style_user = _style.get(func.__name__, {}).get(sub_style, {})
 
-        print("defaults", defaults)
-        print("sub_style_defaults", sub_style_defaults)
-        print("user", user)
-        print("sub_style_user", sub_style_user)
-        print("bound_args", bound_args)
-
         bound_args = _merge(defaults, sub_style_defaults, user, sub_style_user, bound_args)
-
-        print(bound_args)
 
         return func(**bound_args)
     return wrapper
