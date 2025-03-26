@@ -74,7 +74,7 @@ def visualize_restraint(structure,
 
                         sub_style="default",
 
-                        focus: Optional[bool]=True,
+                        focus: Optional[bool]=False,
                         ):
 
     """
@@ -163,4 +163,32 @@ def visualize_restraint(structure,
     if focus:
         res.focus()
 
+
+
+def visualize_restraints(structure, restraint_df, sub_style_col=None, **kwargs):
+
+    if sub_style_col is not None and not sub_style_col in restraint_df.columns:
+        raise ValueError(f"The requested sub_style col ({sub_style_col}) is not present in the dataframe!")
+
+    for _, row in restraint_df.iterrows():
+
+        restraint_info = {
+            "start_asym_id"  : row["asym_id_1"],
+            "start_seq_id"   : row["seq_id_1"],
+            "start_atom_id"  : row["atom_id_1"],
+
+            "end_asym_id"    : row["asym_id_2"],
+            "end_seq_id"     : row["seq_id_2"],
+            "end_atom_id"    : row["atom_id_2"],
+
+            "distance"       : row["distance_threshold"],
+            "restraint_type" : row["restraint_type"],
+        }
+
+        if sub_style_col is not None:
+            ss_val = row[sub_style_col]
+        else:
+            ss_val = None
+
+        visualize_restraint(structure, **restraint_info, sub_style=ss_val, **kwargs)
 
