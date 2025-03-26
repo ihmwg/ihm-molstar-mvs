@@ -56,6 +56,27 @@
 			"tube_params": {
 				"color": "green"
 			}
+		},
+
+
+		"intra": {
+			"color_params": {
+				"color": "blue",
+				"custom": null
+			},
+			"tube_params": {
+				"color": "blue"
+			}
+		},
+
+		"inter": {
+			"color_params": {
+				"color": "green",
+				"custom": null
+			},
+			"tube_params": {
+				"color": "green"
+			}
 		}
 	}
 }
