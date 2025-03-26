@@ -25,7 +25,7 @@ def first_n(df: pd.DataFrame, n: int=5) -> pd.DataFrame:
     df : pd.DataFrame
         The filtered dataframe
     """
-    return df.head(5)
+    return df.head(n).copy()
 
 def random_sample(df: pd.DataFrame, n: int=100, random_state: Optional[int]=None) -> pd.DataFrame:
     """
@@ -62,7 +62,7 @@ def across_chains(df: pd.DataFrame) -> pd.DataFrame:
     df : pd.DataFrame
         The filtered dataframe
     """
-    return df.loc[df["asym_1"] != df["asym_2"]]
+    return df.loc[df["asym_id_1"] != df["asym_id_2"]].copy()
 
 
 def diversity_filter(df: pd.DataFrame) -> pd.DataFrame:
@@ -90,7 +90,7 @@ def diversity_filter(df: pd.DataFrame) -> pd.DataFrame:
     stacked = pd.concat((df_a, df_b), ignore_index=True).sample(frac=1.0)
     to_keep = stacked.drop_duplicates(subset=["asym", "seq_id"])["original_index"].unique()
 
-    return df.loc[df.index.isin(to_keep)]
+    return df.loc[df.index.isin(to_keep)].copy()
 
 def get_solved_distance(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -130,7 +130,7 @@ def violated(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df = get_solved_distance(df)
-    return df.loc[df["compliant"] == False]
+    return df.loc[df["compliant"] == False].copy()
 
 def compliant(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -149,7 +149,7 @@ def compliant(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df = get_solved_distance(df)
-    return df.loc[df["compliant"] == True]
+    return df.loc[df["compliant"] == True].copy()
 
 
 def within_X_of(df: pd.DataFrame, X: float, position: np.ndarray | List) -> pd.DataFrame:
@@ -180,6 +180,7 @@ def within_X_of(df: pd.DataFrame, X: float, position: np.ndarray | List) -> pd.D
     res1_dist = df.apply(lambda row: np.linalg.norm(position - np.array(row["atom_id_1_coords"])), axis=1)
     res2_dist = df.apply(lambda row: np.linalg.norm(position - np.array(row["atom_id_2_coords"])), axis=1)
 
-    return df.loc[(res1_dist < X) | (res2_dist < X)]
+    return df.loc[(res1_dist < X) | (res2_dist < X)].copy()
+
 
 

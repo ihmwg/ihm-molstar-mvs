@@ -1,0 +1,636 @@
+{
+  "kind": "single",
+  "root": {
+    "kind": "root",
+    "children": [
+      {
+        "kind": "download",
+        "params": {
+          "url": "https://pdb-ihm.org/cif/9a3v.cif"
+        },
+        "children": [
+          {
+            "kind": "parse",
+            "params": {
+              "format": "mmcif"
+            },
+            "children": [
+              {
+                "kind": "structure",
+                "params": {
+                  "type": "assembly"
+                },
+                "children": [
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": "polymer"
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "cartoon"
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "white"
+                            },
+                            "custom": {
+                              "molstar_use_default_coloring": true
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 643,
+                        "end_label_seq_id": 643
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 121,
+                        "end_label_seq_id": 121
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 643,
+                            "end_label_seq_id": 643,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <25.0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 677,
+                        "end_label_seq_id": 677
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 30,
+                        "end_label_seq_id": 30
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 590,
+                        "end_label_seq_id": 590
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 649,
+                        "end_label_seq_id": 649
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 649,
+                            "end_label_seq_id": 649,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 30,
+                        "end_label_seq_id": 30
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 22,
+                        "end_label_seq_id": 22
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 22,
+                            "end_label_seq_id": 22,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 464,
+                        "end_label_seq_id": 464
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "pink"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "pink"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "red",
+                          "kind": "tube",
+                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "title": "Restraints visualized from 9a3v.cif",
+    "timestamp": "2025-03-26T02:26:42.393407+00:00",
+    "version": "1.3"
+  }
+}
