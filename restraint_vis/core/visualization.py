@@ -14,8 +14,6 @@ import pandas as pd
 import json
 from pathlib import Path
 
-
-
 # will prob to refactor this later,
 # cif parameter only used if color=chains
 # so prob would want fix that later
@@ -25,6 +23,7 @@ def visualize_macromolecule(structure, # molviewspec scene builder
 
                             color_params: Optional[Dict[str, str]]=DEFAULT,
                             representation_params: Optional[Dict[str, str]]=DEFAULT,
+                            opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             sub_style: str="default"
                             ): 
     """
@@ -48,7 +47,7 @@ def visualize_macromolecule(structure, # molviewspec scene builder
     """
 
     # Chains
-    structure.component(selector="polymer").representation(**representation_params).color(**color_params)
+    structure.component(selector="polymer").representation(**representation_params).color(**color_params).opacity(**opacity_params)
 
 
 # TODO: feels clunky to use, think about improvements
@@ -68,6 +67,7 @@ def visualize_restraint(structure,
 
                         start_atom_id: str="CA", end_atom_id: str="CA",
                         representation_params: Optional[Dict[str, str]]=DEFAULT,
+                        opacity_params: Optional[Dict[str, str]]=DEFAULT,
                         color_params: Optional[Dict[str, str]]=DEFAULT,
                         distance_params: Optional[Dict[str, str]]=DEFAULT,
                         tube_params: Optional[Dict[str, str]]=DEFAULT,
@@ -138,14 +138,14 @@ def visualize_restraint(structure,
                                        label_atom_id=end_atom_id)
 
     start_component = structure.component(selector=start_residue)
-    start_component.representation(**representation_params).color(**color_params)
+    start_component.representation(**representation_params).color(**color_params).opacity(**opacity_params)
 
     end_component = structure.component(selector=end_residue)
-    end_component.representation(**representation_params).color(**color_params)
+    end_component.representation(**representation_params).color(**color_params).opacity(**opacity_params)
 
     if distance_params is not None:
-        if "tooltip" in distance_params:
-            distance_params["tooltip"] = distance_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
+        if "label_template" in distance_params:
+            distance_params["label_template"] = distance_params["label_template"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
 
         res = structure.primitives().distance(
                 start=start_atom,
