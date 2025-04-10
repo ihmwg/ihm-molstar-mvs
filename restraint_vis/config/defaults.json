@@ -11,6 +11,10 @@
 
                         "representation_params" : {
 				"type": "cartoon"
+			},
+
+			"opacity_params" : {
+				"opacity" : 0.5
 			}
 		}
 	},
@@ -26,55 +30,46 @@
 				"type": "ball_and_stick",
 				"size_factor": 0.7
 			},
-			"tube_params": {
+
+			"opacity_params" : {
+				"opacity" : 1.0
+			},
+
+			"tube_params": {},
+
+			"distance_params": {
 				"radius": 0.1,
 				"dash_length": 0.1,
 				"color": "black",
-			        "tooltip": "Solved Distance: {{{{distance}}}}, Restraint Distance: {restraint_type_symbol}{distance}"
+				"label_template": "Solved Distance: {{{{distance}}}}, Restraint Distance: {restraint_type_symbol}{distance}",
+				"label_size": 0
 			},
-			"distance_params": null,
 
 			"focus": true
 		},
 
 
 		"violated": {
-			"color_params": {
-				"color": "red",
-				"custom": null
-			},
-			"tube_params": {
+			"distance_params": {
 				"color": "red"
 			}
 		},
 
 		"compliant": {
-			"color_params": {
-				"color": "green",
-				"custom": null
-			},
-			"tube_params": {
+			"distance_params": {
 				"color": "green"
 			}
 		},
 
 
 		"intra": {
-			"color_params": {
-				"color": "blue",
-				"custom": null
-			},
-			"tube_params": {
+			"distance_params": {
 				"color": "blue"
 			}
 		},
 
 		"inter": {
-			"color_params": {
-				"color": "green",
-				"custom": null
-			},
-			"tube_params": {
+			"distance_params": {
 				"color": "green"
 			}
 		}
