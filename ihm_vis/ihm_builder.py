@@ -5,8 +5,8 @@ import molviewspec as mvs
 from typing import Optional, Tuple, Dict, Callable, Any
 
 from ihm_vis.style import DEFAULT, apply_style_defaults
-from ihm_vis.sub_style_modes import BUILTIN_SUBSTYLE_FUNCS
-
+from ihm_vis.filters import BUILTIN_FILTER_FUNCS
+from ihm_vis.sub_style_modes import BUILTIN_SUB_STYLE_FUNCS
 
 class IHM_Builder:
 
@@ -369,7 +369,7 @@ class IHM_Builder:
 		"""
 
         if isinstance(sub_style_func, str):
-            sub_style_func = BUILTIN_SUBSTYLE_FUNCS[sub_style_func]
+            sub_style_func = BUILTIN_SUB_STYLE_FUNCS[sub_style_func]
 
         if isinstance(sub_style_func, str):
             _sub_style_func = BUILTIN_SUB_STYLE_FUNCS.get(sub_style_func, None)
