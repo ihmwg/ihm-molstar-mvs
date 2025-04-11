@@ -265,7 +265,9 @@ class IHM_Builder:
 
 							sub_style="default",
 
-							focus: Optional[bool]=False):
+							focus: Optional[bool]=False,
+                            macromolecule_opacity_params: Optional[Dict[str, str]]=DEFAULT):
+
 
 		"""
 		Visualize a restraint
@@ -385,7 +387,9 @@ class IHM_Builder:
 
         sub_styles = _sub_style_func(self, **sub_style_func_kwargs)
 
+        _visualized_restraint = False
         for idx, row in self.restraint_df.iterrows():
+            _visualized_restraint = True
 
             restraint_info = {
                 "start_asym_id"  : row["asym_id_1"],
@@ -402,5 +406,13 @@ class IHM_Builder:
             }
 
             self.visualize_restraint(structure, **restraint_info, **kwargs)
+
+        # Only change macromolecule opacity
+        # if we actually did visualize a restraint
+        if _visualized_restraint:
+            self.visualize_macromolecule(
+                                representation_params=None,
+                                color_params=None,
+                                opacity_params=macromolecule_opacity_params)
 
 
