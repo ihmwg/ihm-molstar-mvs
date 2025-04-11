@@ -1,5 +1,11 @@
-import molviewspec as mvs
+"""
+"""
 
+import molviewspec as mvs
+from typing import Optional, Tuple, Dict, Callable, Any
+
+from ihm_vis.style import DEFAULT, apply_style_defaults
+from ihm_vis.sub_style_modes import BUILTIN_SUBSTYLE_FUNCS
 
 
 class IHM_Builder:
@@ -9,7 +15,9 @@ class IHM_Builder:
                              "model_granularity", "distance_threshold", "restraint_type",
                             ]
 
-    def __init__(self, url, mvs_builder=None, structure_index=0, format="mmcif"):
+    def __init__(self, source: str, mvs_builder: Optional[mvs.Builder]=None, structure_index: int=0, format: str="mmcif"):
+        """
+        """
 
         # Set up MolViewSpec underlying
         # builder and basic environment
@@ -18,14 +26,27 @@ class IHM_Builder:
         else:
             self.mvs_builder = mvs.create_builder()
 
-        self.url = url
-        self.structure = self.mvs_builder.download(url=self.url).parse(format=format).assembly_structure()
+        self.structure = self.mvs_builder.download(url=url).parse(format=format).assembly_structure()
 
         # Parse cif file for restraint information
-        self.structure_index = structure_index
-        self.cif = read_cif()
+        self.cif = read_cif(source, structure_index)
 
-    def get_atom_coordinates(self, atom_id, comp_id, entity_id, asym_id, seq_id):
+        # Setup for restraint_df
+        self._restraint_df_init = False
+
+
+    ###############################################################################################
+    # General Utility functions
+    ###########################
+
+    @classmethod
+    def read_cif(cls, source: str, structure_index: int=0):  # TODO: mmcif type
+        """
+        """
+        ...
+
+    @classmethod
+    def get_atom_coordinates(cls, atom_id, comp_id, entity_id, asym_id, seq_id) -> Optional[Tuple[float, float, float]]:
         """
         Retrieve the Cartesian coordinates (x, y, z) of an atom based on its identifiers.
 
@@ -99,7 +120,7 @@ class IHM_Builder:
     # Parsing different restraint types here #
     ##########################################
 
-    def get_cross_links(self):
+    def get_cross_links(self) -> pd.DataFrame:
         """
         Extract cross-link restraint data from a list of containers and return it as a pandas DataFrame.
 
@@ -157,14 +178,14 @@ class IHM_Builder:
         restraint_df['atom_id_2_coords'] = atom_id_2_coords
 
         self.restraint_df = pd.concat((self.restraint_df, restraint_df)).drop_duplicates()
-        self.restraint_df_init = True
+        self._restraint_df_init = True
         return restraint_df
 
     
     # Master method to parse all restraint types #
     ##############################################
     @property
-    def restraint_df(self):
+    def restraint_df(self) -> pd.DataFrame:
         if self._restraint_df_init:
             return self.restraint_df
 
@@ -173,8 +194,29 @@ class IHM_Builder:
             self.get_cross_links()
 
 
-        self.restraint_df_init = True
+        self._restraint_df_init = True
         return self.restraint_df
+
+
+    ##############################################################################################
+    # Filtering restraints
+    ######################
+
+    def filter_restraints(filter_func: str|Callable[[IHM_Builder], pd.DataFrame], **kwargs) -> pd.DataFrame:
+        """
+        """
+        if isinstance(filter_func, str):
+            _filter_func = BUILTIN_FILTER_FUNCS.get(filter_func, None)
+
+            if _filter_func is None:
+                raise ValueError(f"The requested built-in filter_func ({filter_func}) could not be found. See ihm_vis.filters")
+
+        else:
+            _filter_func = filter_func
+
+        self.restraint_df = _filter_func(self, **kwargs)
+        return self.restraint_df
+
 
 
     ###############################################################################################
@@ -182,7 +224,10 @@ class IHM_Builder:
     #########################
 
     @apply_style_defaults
-    def visualize_macromolecule(self, representation_params, color_params, opacity_params):
+    def visualize_macromolecule(self, 
+                                representation_params: Optional[Dict[str, str]=DEFAULT, 
+                                color_params: Optional[Dict[str, str]]=DEFAULT, 
+                                opacity_params: Optional[Dict[str, str]]=DEFAULT):
 		"""
 		Visualize the macromolecule structure
 
@@ -220,8 +265,7 @@ class IHM_Builder:
 
 							sub_style="default",
 
-							focus: Optional[bool]=False,
-							):
+							focus: Optional[bool]=False):
 
 		"""
 		Visualize a restraint
@@ -302,7 +346,7 @@ class IHM_Builder:
 			res.focus()
 
 
-    def visualize_restraints(self, sub_style_func=None, **kwargs):
+    def visualize_restraints(self, sub_style_func: Optional[str|Callable[[IHM_Builder], pd.Series]]="default", sub_style_func_kwargs: Optional[Dict[Any, Any]]=None, **kwargs):
 		"""
 		Visualize all restraints.
 
@@ -311,43 +355,37 @@ class IHM_Builder:
 
 		Parameters
 		----------
+            sub_style_func: Optional[str|Callable[[IHM_Builder], pd.DataFrame]], a user-defined function that given the builder
+                             will return a pandas series of sub_styles for each row of the restraint_df
+                             built-in functions for common operations provided in ihm_vis.sub_style_modes.
 
-			start_asym_id: str | int, asym_id of the starting residue
-			start_seq_id: int, seq_id of the starting residue
+            sub_style_func_kwargs: Optional[Dict[Any, Any]], additional arguments to pass to sub_style_func
 
-			end_asym_id: str | int, asym_id of the ending residue
-			end_seq_id: int, seq_id of the ending residue
-
-			distance: float, the restraint distance
-			restraint_type: str, the type/operator of the restraint, one of {list(RESTRAINT_TYPE_TO_SYMBOL.keys())}
-
-			representation: str="ball_and_stick", representation of the two residues of the restraint
-			residue_color: str="red", color of the restraint residues
-			start_atom_id: str="CA", atom_id of the starting residue
-			end_atom_id: str="CA", atom_id of the ending residue
-
-			radius: float=0.1, radius of the line drawn between restraint residues
-			line_color=None, color for the line drawn between restraint residues, defaults to the residues' color
-			dash_length: float=0.1, dash length of the line drawn between restraint residues
-
-			label_template="Solved Distance: {{{{distance}}}}, Restraint Distance: the text displayed on the line drawn between restraint residues
-			label_color=None, color of the text displayed on the line drawn between residues, defaults to the residues' color
-
-			focus: bool=True, whether to focus the carmera to this restraint
+            **kwargs: Any arguments to pass to IHM_Builder.visualize_restraint for every row
 
 		Raises
 		------
             TypeError: Parameter passed to MolViewSpec is not supported
 		"""
 
-        if self._
+        if isinstance(sub_style_func, str):
+            sub_style_func = BUILTIN_SUBSTYLE_FUNCS[sub_style_func]
 
+        if isinstance(sub_style_func, str):
+            _sub_style_func = BUILTIN_SUB_STYLE_FUNCS.get(sub_style_func, None)
 
+            if _sub_style_func is None:
+                raise ValueError(f"The requested built-in sub_style_func ({sub_style_func}) could not be found. See ihm_vis.sub_style_modes")
 
-        if sub_style_func is None:
-            sub_style_func = lambda row: "default"
+        else:
+            _sub_style_func = sub_style_func
 
-        for _, row in self.restraint_df.iterrows():
+        if sub_style_func_kwargs is None:
+            sub_style_func_kwargs = {}
+
+        sub_styles = _sub_style_func(self, **sub_style_func_kwargs)
+
+        for idx, row in self.restraint_df.iterrows():
 
             restraint_info = {
                 "start_asym_id"  : row["asym_id_1"],
@@ -360,11 +398,9 @@ class IHM_Builder:
                 "distance"       : row["distance_threshold"],
                 "restraint_type" : row["restraint_type"],
 
-                "sub_style"      : sub_style_func(row)
+                "sub_style"      : sub_styles.loc[idx],
             }
 
             self.visualize_restraint(structure, **restraint_info, **kwargs)
 
-
-		 
 
