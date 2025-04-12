@@ -1,0 +1,27 @@
+visualize_restraint:
+  default:
+    color_params:
+      custom:
+        molstar_color_theme_name: element-symbol
+    representation_params:
+      type: ball_and_stick
+      size_factor: 0.7
+    distance_params:
+      radius: 0.1
+      dash_length: 0.1
+      color: black
+      label_size: 0
+
+  violated:
+    color_params:
+        custom: null
+        color: red
+    distance_params:
+      color: red
+      radius: 0.5
+
+  compliant:
+    distance_params:
+      color: green
+    representation_params:
+      type: cartoon
