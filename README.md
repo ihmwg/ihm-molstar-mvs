@@ -8,7 +8,7 @@ ihm-molstar-mvs
 This repository contains utilities that support data-driven visualization of integrative structures through Molstar using MolViewSpec.
 
 # Testing Instructions 4-12-25
-We are currently undergoing a refactor of the code (see [https://github.com/ihmwg/ihm-molstar-mvs/tree/reorganize_codebase](refactor branch)); therefore, the package documentation is being put on pause! 
+We are currently undergoing a refactor of the code (see [refactoring branch](https://github.com/ihmwg/ihm-molstar-mvs/tree/reorganize_codebase)); therefore, the package documentation is being put on pause! 
 
 To demonstrate the current functionality, we have an example notebook (`devtools/jupyter/Quick_start_example.ipynb`) and a cli (`cli/rcsb_script.py`).
 
@@ -27,7 +27,9 @@ conda activate ihm_vis
 ```
 
 Pip install with dev dependencies (jupyter)
-`pip install .[dev]`
+```
+pip install .[dev]
+```
 
 Start the jupyter server
 ```
