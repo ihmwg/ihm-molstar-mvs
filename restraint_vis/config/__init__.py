@@ -8,6 +8,7 @@ from collections.abc import Mapping
 from typing import Dict
 import functools
 import json
+import yaml
 
 # Default placeholder to differentiate from None value
 class Default:
@@ -99,6 +100,28 @@ def set_style_from_json(file: str|Path):
     with open(file, "r") as f:
         _style.update(json.load(f))
 
+
+def set_style_from_yaml(file: str|Path):
+    """
+    Update default style with user preferences from yaml file
+
+    The style information is stored as a nested dictionary of {"function_name": {"arg": "default"}}. Therefore, to change the default restraint color to #f0624d you can provide a yaml file specifying the analogous dictionary structure. For example, th efollowing yaml would set the default color for the visualize_restraint function:
+
+    visualize_restraint:
+      color: "#f0624d"
+     
+     Use the get_style function to return the current style dictionary and see availible function and argument names.
+
+    Parameters
+    ----------
+    file : yaml file containing mappings of "function_name" : {"arg": "user_specified_default"}
+
+    """
+
+    with open(file, "r") as f:
+        _style.update(yaml.safe_load(f))
+
+
 def reset_style():
     """
     Remove all user-specified style preferences and return to defaults defined by restraint_vis/config/defaults.json
@@ -116,6 +139,6 @@ def get_style() -> Dict:
        style: Dict
            current style dictionary
     """
-    return _merge(DEFAULT_SYLE, _style) 
+    return _merge(DEFAULT_STYLE, _style) 
 
 
