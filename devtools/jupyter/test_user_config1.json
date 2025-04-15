@@ -1,9 +1,8 @@
 {
 	"visualize_restraint": {
 		"violated": {
-			"distance_params" : {
-				"color": "pink",
-				"radius": 0.5
+			"color_params" : {
+				"color": "pink"
 			}
 		}
 	}

@@ -26,7 +26,6 @@ dependencies = [
     "numpy", "pandas", "matplotlib",       # colors
     "mmcif",                     # parsing mmCIF
     "molviewspec@git+https://github.com/molstar/mol-view-spec.git#egg=Master&subdirectory=molviewspec",            # conversion to mvsj
-    "pyyaml",
 ]
 
 # Update the urls once the hosting is set up.

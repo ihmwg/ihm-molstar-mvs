@@ -19,7 +19,6 @@ from pathlib import Path
 # so prob would want fix that later
 @apply_style_defaults
 def visualize_macromolecule(structure, # molviewspec scene builder
-                            cif,       # cif file info
 
                             color_params: Optional[Dict[str, str]]=DEFAULT,
                             representation_params: Optional[Dict[str, str]]=DEFAULT,
