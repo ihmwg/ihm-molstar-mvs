@@ -41,6 +41,12 @@
                             "custom": {
                               "molstar_use_default_coloring": true
                             }
+                          },
+                          {
+                            "kind": "opacity",
+                            "params": {
+                              "opacity": 0.5
+                            }
                           }
                         ]
                       }
@@ -66,7 +72,13 @@
                           {
                             "kind": "color",
                             "params": {
-                              "color": "pink"
+                              "color": "red"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
+                            "params": {
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -93,7 +105,13 @@
                           {
                             "kind": "color",
                             "params": {
-                              "color": "pink"
+                              "color": "red"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
+                            "params": {
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -119,11 +137,36 @@
                             "end_label_seq_id": 47,
                             "label_atom_id": "CA"
                           },
-                          "radius": 0.1,
+                          "radius": 0.5,
                           "dash_length": 0.1,
                           "color": "red",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -141,14 +184,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -168,14 +218,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -204,8 +261,33 @@
                           "radius": 0.1,
                           "dash_length": 0.1,
                           "color": "green",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <25.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 643,
+                            "end_label_seq_id": 643,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -223,14 +305,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -250,14 +339,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -286,8 +382,33 @@
                           "radius": 0.1,
                           "dash_length": 0.1,
                           "color": "green",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -305,14 +426,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -332,14 +460,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -368,8 +503,33 @@
                           "radius": 0.1,
                           "dash_length": 0.1,
                           "color": "green",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -387,14 +547,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -414,14 +581,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -450,8 +624,33 @@
                           "radius": 0.1,
                           "dash_length": 0.1,
                           "color": "green",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -469,14 +668,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -496,14 +702,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -532,8 +745,33 @@
                           "radius": 0.1,
                           "dash_length": 0.1,
                           "color": "green",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 649,
+                            "end_label_seq_id": 649,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -551,14 +789,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -578,14 +823,21 @@
                       {
                         "kind": "representation",
                         "params": {
-                          "type": "ball_and_stick",
+                          "type": "cartoon",
                           "size_factor": 0.7
                         },
                         "children": [
                           {
                             "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
                             "params": {
-                              "color": "green"
+                              "opacity": 1.0
                             }
                           }
                         ]
@@ -614,8 +866,33 @@
                           "radius": 0.1,
                           "dash_length": 0.1,
                           "color": "green",
-                          "kind": "tube",
-                          "tooltip": "Solved Distance: {{distance}}, Restraint Distance: <35.0"
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 22,
+                            "end_label_seq_id": 22,
+                            "label_atom_id": "CA"
+                          },
+                          "kind": "tube"
                         }
                       }
                     ]
@@ -630,7 +907,7 @@
   },
   "metadata": {
     "title": "Restraints visualized from 9a3v.cif",
-    "timestamp": "2025-03-26T02:59:05.089802+00:00",
-    "version": "1.3"
+    "timestamp": "2025-04-12T15:58:29.933131+00:00",
+    "version": "1.4"
   }
 }
