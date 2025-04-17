@@ -4,21 +4,20 @@
 from typing import Dict, Callable
 import pandas as pd
 
-from ihm_vis import IHM_Builder
 from ihm_vis.filters import get_solved_distance
 
 ###################################################################################################
-BUILTIN_SUB_STLYE_FUNCS: Dict[str, Callable[[IHM_Builder], pd.Series]] = {}
+BUILTIN_SUB_STYLE_FUNCS: Dict[str, Callable] = {}
 ###################################################################################################
 
-def default(ihm_builder: IHM_Builder) -> pd.Series:
+def default(ihm_builder) -> pd.Series:
     return pd.Series("default", index=ihm_builder.restraint_df.index)
 
 BUILTIN_SUB_STYLE_FUNCS["default"] = default
 
 ###################################################################################################
 
-def violated_and_compliant(ihm_builder: IHM_Builder) -> pd.Series:
+def violated_and_compliant(ihm_builder) -> pd.Series:
     """
 
     NOTE AND BE CLEAR THAT THIS DOES MODIFY IHM_Builder passed in!!
@@ -40,7 +39,7 @@ BUILTIN_SUB_STYLE_FUNCS["violated_and_compliant"] = violated_and_compliant
 
 
 
-def inter_and_intra_chain(ihm_builder: IHM_Builder) -> pd.Series:
+def inter_and_intra_chain(ihm_builder) -> pd.Series:
     """
 
     NOTE AND BE CLEAR THAT THIS DOES MODIFY IHM_Builder passed in!!

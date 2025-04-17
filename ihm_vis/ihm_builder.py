@@ -1,23 +1,64 @@
 """
 """
 
-import molviewspec as mvs
 from typing import Optional, Tuple, Dict, Callable, Any
+
+import molviewspec as mvs
+from molviewspec.nodes import ComponentExpression
+from molviewspec.mvsx_converter import mvsj_to_mvsx
+from pathlib import Path
+from mmcif.io.PdbxReader import PdbxReader
+import pandas as pd
+from urllib.parse import urlparse
+import requests
+import io
 
 from ihm_vis.style import DEFAULT, apply_style_defaults
 from ihm_vis.filters import BUILTIN_FILTER_FUNCS
 from ihm_vis.sub_style_modes import BUILTIN_SUB_STYLE_FUNCS
+from ihm_vis.utils import restraint_type_to_symbol
+from ihm_vis.local_file import LocalFile
 
 class IHM_Builder:
 
-    restraint_df_columns  = ["entity_id_1", "asym_id_1", "seq_id_1", "comp_id_1", "atom_id_1",
-                             "entity_id_2", "asym_id_2", "seq_id_2", "comp_id_2", "atom_id_2",
-                             "model_granularity", "distance_threshold", "restraint_type",
-                            ]
+    restraint_df_schema = {"entity_id_1": "str",
+                           "asym_id_1": "str", 
+                           "seq_id_1": "str",
+                           "comp_id_1": "str",
+                           "atom_id_1": "str",
+                           "entity_id_2": "str",
+                           "asym_id_2": "str",
+                           "seq_id_2": "str",
+                           "comp_id_2": "str",
+                           "atom_id_2": "str",
+                           "model_granularity": "str",
+                           "distance_threshold": "float",
+                           "restraint_type": "str",
+                           }
 
-    def __init__(self, source: str, mvs_builder: Optional[mvs.Builder]=None, structure_index: int=0, format: str="mmcif"):
+    def __init__(self, source: str|Path, mvs_builder: Optional=None, structure_index: int=0, format: str="mmcif", macromolecule_selector: str="polymer", port: int=8003):
         """
         """
+
+        self.source = source
+
+        if urlparse(source).scheme in ("http", "https"):
+            self.source_type = "url"
+
+            self.local_file = None
+            self.url = source
+            self.cif = self.read_cif_url(source)
+
+        elif Path(source).exists():
+            self.source_type = "file"
+
+            self.local_file = LocalFile(source, port)
+            self.url = self.local_file.url
+            self.cif = self.read_cif_file(source)
+
+        else:
+            raise ValueError("Invalid source: must either be a valid URL or a local file path")
+
 
         # Set up MolViewSpec underlying
         # builder and basic environment
@@ -26,13 +67,13 @@ class IHM_Builder:
         else:
             self.mvs_builder = mvs.create_builder()
 
-        self.structure = self.mvs_builder.download(url=url).parse(format=format).assembly_structure()
-
-        # Parse cif file for restraint information
-        self.cif = read_cif(source, structure_index)
+        self.macromolecule_selector = macromolecule_selector
+        self.structure = self.mvs_builder.download(url=self.url).parse(format=format).assembly_structure()
+        self.macromolecule_component = self.structure.component(selector=self.macromolecule_selector)
 
         # Setup for restraint_df
-        self._restraint_df_init = False
+        cols = {colname : pd.Series(dtype=t) for colname, t in self.restraint_df_schema.items()}
+        self.restraint_df = pd.DataFrame(cols)
 
 
     ###############################################################################################
@@ -40,13 +81,36 @@ class IHM_Builder:
     ###########################
 
     @classmethod
-    def read_cif(cls, source: str, structure_index: int=0):  # TODO: mmcif type
+    def read_cif_file(cls, file_path: str|Path, structure_index: int=0):
         """
         """
-        ...
+
+        containers = []
+
+        with open(file_path, "r") as f:
+            PdbxReader(f).read(containers)
+
+        return containers[structure_index]
 
     @classmethod
-    def get_atom_coordinates(cls, atom_id, comp_id, entity_id, asym_id, seq_id) -> Optional[Tuple[float, float, float]]:
+    def read_cif_url(cls, url: str, structure_index: int=0):
+        """
+        """
+
+        containers = []
+
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise ValueError(f"Failed to retrieve file from {url}. Input must be a valid url")
+
+        f = io.StringIO(response.text)
+        PdbxReader(f).read(containers)
+
+        return containers[structure_index]
+
+
+    @classmethod
+    def get_atom_coordinates(cls, container, atom_id, comp_id, entity_id, asym_id, seq_id) -> Optional[Tuple[float, float, float]]:
         """
         Retrieve the Cartesian coordinates (x, y, z) of an atom based on its identifiers.
 
@@ -136,32 +200,31 @@ class IHM_Builder:
         # Extract cross-link restraint data from the container
         cross_link_data = self.cif.getObj('ihm_cross_link_restraint')
         if cross_link_data is None:
-            return pd.DataFrame(columns=self.restraint_df_columns)
+
+            cols = {colname : pd.Series(dtype=t) for colname, t in self.restraint_df_schema.items()}
+            return pd.DataFrame(cols)
 
         # Iterate through each row of cross-link data
         restraints = []
         for i in range(cross_link_data.getRowCount()):
-            data = {
-            "entity_id_1":  cross_link_data.getValue("entity_id_1", i),
-            "asym_id_1": cross_link_data.getValue("asym_id_1", i),
-            "seq_id_1": cross_link_data.getValue("seq_id_1", i),
-            "comp_id_1": cross_link_data.getValue("comp_id_1", i),
-            "atom_id_1" : cross_link_data.getValue("atom_id_1", i),
+            restraints.append((
+                cross_link_data.getValue("entity_id_1", i),
+                cross_link_data.getValue("asym_id_1", i),
+                cross_link_data.getValue("seq_id_1", i),
+                cross_link_data.getValue("comp_id_1", i),
+                cross_link_data.getValue("atom_id_1", i),
+                cross_link_data.getValue("entity_id_2", i),
+                cross_link_data.getValue("asym_id_2", i),
+                cross_link_data.getValue("seq_id_2", i),
+                cross_link_data.getValue("comp_id_2", i),
+                cross_link_data.getValue("atom_id_2", i),
+                cross_link_data.getValue("model_granularity", i),
+                float(cross_link_data.getValue("distance_threshold", i)),
+                cross_link_data.getValue("restraint_type", i)))
 
-            "entity_id_2": cross_link_data.getValue("entity_id_2", i),
-            "asym_id_2": cross_link_data.getValue("asym_id_2", i),
-            "seq_id_2": cross_link_data.getValue("seq_id_2", i),
-            "comp_id_2": cross_link_data.getValue("comp_id_2", i),
-            "atom_id_2" : cross_link_data.getValue("atom_id_2", i),
 
-            "model_granularity": cross_link_data.getValue("model_granularity", i),
-            "distance_threshold": float(cross_link_data.getValue("distance_threshold", i)),
-            "restraint_type": cross_link_data.getValue("restraint_type", i),
-            }
-            restraints.append(data)
-    
-        # Convert the list of restraints to a pandas DataFrame.
-        restraint_df = pd.DataFrame(restraints)
+        #the list of restraints to a pandas DataFrame.
+        restraint_df = pd.DataFrame(restraints, columns=self.restraint_df_schema.keys())
         # If atom ids are not specified default to carbon alpha (CA)
         restraint_df['atom_id_1'] = restraint_df['atom_id_1'].str.replace('.', 'CA', regex=False)
         restraint_df['atom_id_2'] = restraint_df['atom_id_2'].str.replace('.', 'CA', regex=False)
@@ -169,32 +232,28 @@ class IHM_Builder:
         atom_id_1_coords = []
         atom_id_2_coords = []
         # Iterate through cross link in dataframe
-        for index, row in self.restraint_df.iterrows():
+        for index, row in restraint_df.iterrows():
             # Get coordinates for each atom in crosslink
-            atom_id_1_coords.append(get_atom_coordinates(container, row['atom_id_1'], row['comp_id_1'], row['entity_id_1'], row['asym_id_1'], row['seq_id_1']))
-            atom_id_2_coords.append(get_atom_coordinates(container, row['atom_id_2'], row['comp_id_2'], row['entity_id_2'], row['asym_id_2'], row['seq_id_2']))
+            atom_id_1_coords.append(self.get_atom_coordinates(self.cif, row['atom_id_1'], row['comp_id_1'], row['entity_id_1'], row['asym_id_1'], row['seq_id_1']))
+            atom_id_2_coords.append(self.get_atom_coordinates(self.cif, row['atom_id_2'], row['comp_id_2'], row['entity_id_2'], row['asym_id_2'], row['seq_id_2']))
         # Add coordinates to dataframe
         restraint_df['atom_id_1_coords'] = atom_id_1_coords
         restraint_df['atom_id_2_coords'] = atom_id_2_coords
 
+        
         self.restraint_df = pd.concat((self.restraint_df, restraint_df)).drop_duplicates()
-        self._restraint_df_init = True
-        return restraint_df
+        return restraint_df 
 
     
     # Master method to parse all restraint types #
     ##############################################
-    @property
-    def restraint_df(self) -> pd.DataFrame:
-        if self._restraint_df_init:
-            return self.restraint_df
+    def get_all_restraints(self) -> pd.DataFrame:
+        # Call each restraint type
+        self.get_cross_links()  # cross_linking
 
-        else:
-            # Call each restraint type
-            self.get_cross_links()
+        # FUTURE METHODS
+        #self.get_nrm_restraints() # nmr
 
-
-        self._restraint_df_init = True
         return self.restraint_df
 
 
@@ -202,12 +261,13 @@ class IHM_Builder:
     # Filtering restraints
     ######################
 
-    def filter_restraints(filter_func: str|Callable[[IHM_Builder], pd.DataFrame], **kwargs) -> pd.DataFrame:
+    def filter_restraints(self, filter_func: str|Callable, **kwargs) -> pd.DataFrame:
         """
         """
         if isinstance(filter_func, str):
             _filter_func = BUILTIN_FILTER_FUNCS.get(filter_func, None)
 
+ 
             if _filter_func is None:
                 raise ValueError(f"The requested built-in filter_func ({filter_func}) could not be found. See ihm_vis.filters")
 
@@ -225,138 +285,179 @@ class IHM_Builder:
 
     @apply_style_defaults
     def visualize_macromolecule(self, 
-                                representation_params: Optional[Dict[str, str]=DEFAULT, 
-                                color_params: Optional[Dict[str, str]]=DEFAULT, 
-                                opacity_params: Optional[Dict[str, str]]=DEFAULT):
-		"""
-		Visualize the macromolecule structure
+                                representation_params: Optional[dict[str, str]]=DEFAULT, 
+                                color_params: Optional[dict[str, str]]=DEFAULT, 
+                                opacity_params: Optional[dict[str, str]]=DEFAULT):
+        """
+        visualize the macromolecule structure
 
-		Parameters
-		----------
-			representation_params: representation parameters passed to MolViewSpec
-			color_params: color parameters passed to MolViewSpec
+        Parameters
+        ----------
+            representation_params: representation parameters passed to MolViewSpec
+            color_params: color parameters passed to MolViewSpec
             opacity_params: opacity parameters passed to MolViewSpec
 
-		Raises
-		------
+        Raises
+        ------
             TypeError: Parameter passed to MolViewSpec is not supported
-		"""
-        self.structure.component(selector="polymer").representation(**representation_params).color(**color_params).opacity(**opacity_params)
+        """
+        rep = self.macromolecule_component.representation(**representation_params)
+
+        if color_params:
+            rep.color(**color_params)
+
+        if opacity_params:
+            rep.opacity(**opacity_params)
 
 
-	@apply_style_defaults
-	def visualize_restraint(self,
+    def get_component(expression):
 
-							start_asym_id: str|int, 
-							start_seq_id: int, 
+        if hasattr(expression, "dump_model_json"):
+            exp = expression.dump_model_json()
+        else:
+            exp = expression
 
-							end_asym_id: str|int,
-							end_seq_id: int, 
+        if not exp in self.residue_components:
+            self.components[exp] = self.structure.component(selector=expression)
 
-							distance: float,
-							restraint_type: str, 
+        return self.components[exp]
 
-							start_atom_id: str="CA", end_atom_id: str="CA",
 
-							representation_params: Optional[Dict[str, str]]=DEFAULT,
-							color_params: Optional[Dict[str, str]]=DEFAULT,
-							distance_params: Optional[Dict[str, str]]=DEFAULT,
-							tube_params: Optional[Dict[str, str]]=DEFAULT,
+    def get_residue_rep(expression):
+        exp = expression.dump_model_json()
+        if not exp in self.residue_reps:
+            strucutre = get_residue_component(expression)
 
-							sub_style="default",
+            return structure.representation()
 
-							focus: Optional[bool]=False,
+
+    @apply_style_defaults
+    def visualize_restraint(self,
+
+                            start_asym_id: str|int, 
+                            start_seq_id: int, 
+
+                            end_asym_id: str|int,
+                            end_seq_id: int, 
+
+                            distance: float,
+                            restraint_type: str, 
+
+                            start_atom_id: str="CA", end_atom_id: str="CA",
+
+                            representation_params: Optional[Dict[str, str]]=DEFAULT,
+                            color_params: Optional[Dict[str, str]]=DEFAULT,
+                            opacity_params: Optional[Dict[str, str]]=DEFAULT,
+                            distance_params: Optional[Dict[str, str]]=DEFAULT,
+                            tube_params: Optional[Dict[str, str]]=DEFAULT,
+
+                            sub_style="default",
+
+                            focus: Optional[bool]=False,
                             macromolecule_opacity_params: Optional[Dict[str, str]]=DEFAULT):
 
 
-		"""
-		Visualize a restraint
+        """
+        Visualize a restraint
 
-		Parameters
-		----------
+        Parameters
+        ----------
 
-			start_asym_id: str | int, asym_id of the starting residue
-			start_seq_id: int, seq_id of the starting residue
+            start_asym_id: str | int, asym_id of the starting residue
+            start_seq_id: int, seq_id of the starting residue
 
-			end_asym_id: str | int, asym_id of the ending residue
-			end_seq_id: int, seq_id of the ending residue
+            end_asym_id: str | int, asym_id of the ending residue
+            end_seq_id: int, seq_id of the ending residue
 
-			distance: float, the restraint distance
-			restraint_type: str, the type/operator of the restraint, one of {list(RESTRAINT_TYPE_TO_SYMBOL.keys())}
+            distance: float, the restraint distance
+            restraint_type: str, the type/operator of the restraint, one of {list(RESTRAINT_TYPE_TO_SYMBOL.keys())}
 
-			representation: str="ball_and_stick", representation of the two residues of the restraint
-			residue_color: str="red", color of the restraint residues
-			start_atom_id: str="CA", atom_id of the starting residue
-			end_atom_id: str="CA", atom_id of the ending residue
+            representation: str="ball_and_stick", representation of the two residues of the restraint
+            residue_color: str="red", color of the restraint residues
+            start_atom_id: str="CA", atom_id of the starting residue
+            end_atom_id: str="CA", atom_id of the ending residue
 
-			radius: float=0.1, radius of the line drawn between restraint residues
-			line_color=None, color for the line drawn between restraint residues, defaults to the residues' color
-			dash_length: float=0.1, dash length of the line drawn between restraint residues
+            radius: float=0.1, radius of the line drawn between restraint residues
+            line_color=None, color for the line drawn between restraint residues, defaults to the residues' color
+            dash_length: float=0.1, dash length of the line drawn between restraint residues
 
-			label_template="Solved Distance: {{{{distance}}}}, Restraint Distance: the text displayed on the line drawn between restraint residues
-			label_color=None, color of the text displayed on the line drawn between residues, defaults to the residues' color
+            label_template="Solved Distance: {{{{distance}}}}, Restraint Distance: the text displayed on the line drawn between restraint residues
+            label_color=None, color of the text displayed on the line drawn between residues, defaults to the residues' color
 
-			focus: bool=True, whether to focus the carmera to this restraint
+            focus: bool=True, whether to focus the carmera to this restraint
 
-		Raises
-		------
+        Raises
+        ------
             TypeError: Parameter passed to MolViewSpec is not supported
-		"""
+        """
 
-		start_residue = ComponentExpression(label_asym_id=start_asym_id,
-										   beg_label_seq_id=start_seq_id,
-										   end_label_seq_id=start_seq_id)
+        start_residue = ComponentExpression(label_asym_id=start_asym_id,
+                                           beg_label_seq_id=start_seq_id,
+                                           end_label_seq_id=start_seq_id)
 
-		end_residue = ComponentExpression(label_asym_id=end_asym_id,
-										   beg_label_seq_id=end_seq_id,
-										   end_label_seq_id=end_seq_id)
+        end_residue = ComponentExpression(label_asym_id=end_asym_id,
+                                           beg_label_seq_id=end_seq_id,
+                                           end_label_seq_id=end_seq_id)
 
-		start_atom = ComponentExpression(label_asym_id=start_asym_id,
-										   beg_label_seq_id=start_seq_id,
-										   end_label_seq_id=start_seq_id,
-										   label_atom_id=start_atom_id)
+        start_atom = ComponentExpression(label_asym_id=start_asym_id,
+                                           beg_label_seq_id=start_seq_id,
+                                           end_label_seq_id=start_seq_id,
+                                           label_atom_id=start_atom_id)
 
-		end_atom = ComponentExpression(label_asym_id=end_asym_id,
-										   beg_label_seq_id=end_seq_id,
-										   end_label_seq_id=end_seq_id,
-										   label_atom_id=end_atom_id)
+        end_atom = ComponentExpression(label_asym_id=end_asym_id,
+                                           beg_label_seq_id=end_seq_id,
+                                           end_label_seq_id=end_seq_id,
+                                           label_atom_id=end_atom_id)
 
-		start_component = self.structure.component(selector=start_residue)
-		start_component.representation(**representation_params).color(**color_params).opacity(**opacity_params)
+        start_component = self.get_component(start_residue)
+        start_rep = start_component.representation(**representation_params)
+        if color_params:
+            start_rep.color(**color_params)
+        if opacity_params:
+            start_rep.opacity(**opacity_params)
 
-		end_component = self.structure.component(selector=end_residue)
-		end_component.representation(**representation_params).color(**color_params).opacity(**opacity_params)
+        end_component = self.get_component(end_residue)
+        end_rep = end_component.representation(**representation_params)
+        if color_params:
+            end_rep.color(**color_params)
+        if opacity_params:
+            end_rep.opacity(**opacity_params)
 
-		if distance_params is not None:
-			if "tooltip" in distance_params:
-				distance_params["tooltip"] = distance_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
+        if distance_params:
+            if "tooltip" in distance_params:
+                distance_params["tooltip"] = distance_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
 
-			res = self.structure.primitives().distance(
-					start=start_atom,
-					end=end_atom,
-					**distance_params)
+            res = self.structure.primitives().distance(
+                    start=start_atom,
+                    end=end_atom,
+                    **distance_params)
 
-		if tube_params is not None:
-			if "tooltip" in tube_params:
-				tube_params["tooltip"] = tube_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
-			res = self.structure.primitives().tube(
-					start=start_atom,
-					end=end_atom,
-					**tube_params)
+        if tube_params:
+            if "tooltip" in tube_params:
+                tube_params["tooltip"] = tube_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
 
-		if focus:
-			res.focus()
+            res = self.structure.primitives().tube(
+                    start=start_atom,
+                    end=end_atom,
+                    **tube_params)
+
+        if focus:
+            res.focus()
+
+        if macromolecule_opacity_params:
+            self.get_component("polymer").representation().opacity(**macromolecule_opacity_params)
 
 
-    def visualize_restraints(self, sub_style_func: Optional[str|Callable[[IHM_Builder], pd.Series]]="default", sub_style_func_kwargs: Optional[Dict[Any, Any]]=None, **kwargs):
-		"""
-		Visualize all restraints.
+
+    def visualize_restraints(self, sub_style_func: Optional[str|Callable]="default", sub_style_func_kwargs: Optional[Dict[Any, Any]]=None, **kwargs):
+        """
+        Visualize all restraints.
 
         This function loops over all restraints in the ihm_builder.restraint_df. If no specific restraints tpyes have been parsed yet,
         such as by explicityly calling ihm_builder.get_cross_links(), then all restraint types will be parsed before visualization
 
-		Parameters
-		----------
+        Parameters
+        ----------
             sub_style_func: Optional[str|Callable[[IHM_Builder], pd.DataFrame]], a user-defined function that given the builder
                              will return a pandas series of sub_styles for each row of the restraint_df
                              built-in functions for common operations provided in ihm_vis.sub_style_modes.
@@ -365,10 +466,10 @@ class IHM_Builder:
 
             **kwargs: Any arguments to pass to IHM_Builder.visualize_restraint for every row
 
-		Raises
-		------
+        Raises
+        ------
             TypeError: Parameter passed to MolViewSpec is not supported
-		"""
+        """
 
         if isinstance(sub_style_func, str):
             sub_style_func = BUILTIN_SUB_STYLE_FUNCS[sub_style_func]
@@ -405,14 +506,24 @@ class IHM_Builder:
                 "sub_style"      : sub_styles.loc[idx],
             }
 
-            self.visualize_restraint(structure, **restraint_info, **kwargs)
+            self.visualize_restraint(**restraint_info, **kwargs)
 
-        # Only change macromolecule opacity
-        # if we actually did visualize a restraint
-        if _visualized_restraint:
-            self.visualize_macromolecule(
-                                representation_params=None,
-                                color_params=None,
-                                opacity_params=macromolecule_opacity_params)
+    ###############################################################################################
+    # Writing mvsj output files
+    ###########################
+
+    def to_mvsj(self, file_stem: str, title: Optional[str]="", **kwargs):
+
+        if self.source_type == "file":
+            with self.local_file.serve():
+                self.mvs_builder.save_state(destination=f"{file_stem}.mvsj", title=title, **kwargs)
+                mvsj_to_mvsx(f"{file_stem}.mvsj", f"{file_stem}.mvsx", download_external=True)
+
+            return Path(f"{file_stem}.mvsx")
+
+        else:
+            self.mvs_builder.save_state(destination=f"{file_stem}.mvsj", title=title, **kwargs)
+
+            return Path(f"{file_stem}.mvsj")
 
 

@@ -2,16 +2,13 @@
 Tools for filtering restraint table
 """
 
-from typing import Optional, List
-
-from ihm_vis import IHM_Builder
-#from restraint_vis.utils.general import restraint_type_to_operator
+from typing import Optional, List, Dict, Callable
 
 import numpy as np
 import pandas as pd
 
 ###################################################################################################
-BUILTIN_FILTER_FUNCS: Dict[str, Callable[[IHM_Builder], pd.DataFrame]] = {}
+BUILTIN_FILTER_FUNCS: Dict[str, Callable] = {}
 ###################################################################################################
 
 
