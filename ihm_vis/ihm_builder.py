@@ -263,7 +263,7 @@ class IHM_Builder:
         """
         """
         # avoid circular imports
-        from ihm_vis.utils.filters import BUILTIN_FILTER_FUNCS
+        from ihm_vis.utils.restraint_filters import BUILTIN_FILTER_FUNCS
 
         if isinstance(filter_func, str):
             _filter_func = BUILTIN_FILTER_FUNCS.get(filter_func, None)
