@@ -1,5 +1,6 @@
 from http import server
 import socketserver
+import socket
 import threading
 from contextlib import contextmanager
 from urllib.parse import unquote
@@ -13,6 +14,9 @@ class FileHandler(server.SimpleHTTPRequestHandler):
         self.hosted_path = "/" + hosted_path.lstrip("/")
         super().__init__(*args, **kwargs)
 
+    def log_message(self, format, *args):
+        pass # dont log
+
     def do_GET(self):
         if unquote(self.path) != self.hosted_path:
             self.send_error(404, "File not found")
@@ -25,6 +29,14 @@ class FileHandler(server.SimpleHTTPRequestHandler):
 
             with open(self.file_path, "rb") as f:
                 self.wfile.write(f.read())
+
+
+class ReusableTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+    def server_bind(self):
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        super().server_bind()
 
 
 
@@ -47,7 +59,7 @@ class LocalFile:
         def handler(*args, **kwargs):
             return FileHandler(*args, file_path=self.file_path, hosted_path=self.hosted_path, **kwargs)
 
-        with socketserver.TCPServer(("", self.port), handler) as httpd:
+        with ReusableTCPServer(("", self.port), handler) as httpd:
             self._httpd = httpd
             self._thread = threading.Thread(target=httpd.serve_forever, daemon=True)
             self._thread.start()
