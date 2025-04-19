@@ -254,7 +254,7 @@ def set_style(kwargs):
     kwargs: mappings of "function_name" : {"arg": "user_specified_default"}
 
     """
-    _style.update(kwargs)
+    USER_STYLE.update(kwargs)
 
 def set_style_from_json(file: str|Path):
     """
@@ -269,7 +269,7 @@ def set_style_from_json(file: str|Path):
     """
 
     with open(file, "r") as f:
-        _style.update(json.load(f))
+        USER_STYLE.update(json.load(f))
 
 
 def set_style_from_yaml(file: str|Path):
@@ -290,14 +290,14 @@ def set_style_from_yaml(file: str|Path):
     """
 
     with open(file, "r") as f:
-        _style.update(yaml.safe_load(f))
+        USER_STYLE.update(yaml.safe_load(f))
 
 
 def reset_style():
     """
     Remove all user-specified style preferences and return to defaults defined by restraint_vis/config/defaults.json
     """
-    _style.clear()
+    USER_STYLE.clear()
 
 def get_style() -> Dict:
     """
@@ -310,6 +310,6 @@ def get_style() -> Dict:
        style: Dict
            current style dictionary
     """
-    return _merge(DEFAULT_STYLE, _style) 
+    return _merge(DEFAULT_STYLE, USER_STYLE) 
 
 

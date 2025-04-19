@@ -29,7 +29,7 @@ def violated_and_compliant(df):
     # Sort values for consistency of residue colors
     # first coloring always seems to stick
     # and want violated to take precidence
-    df = df.sort_values("compliant")
+    df = df.sort_values("compliant", ascending=False)
     df["sub_style"] = df["compliant"].map({True: "compliant", False: "violated"})
 
     return df
@@ -46,7 +46,7 @@ def inter_and_intra_chain(df):
     # first coloring always seems to stick
     # and want inter to take precidence
     df["same_chain"] = df["asym_id_1"] == df["asym_id_2"]
-    df = df.sort_values("same_chain")
+    df = df.sort_values("same_chain", ascending=False)
     df["sub_style"] = df["same_chain"].map({True: "intra", False: "inter"})
 
     return df
