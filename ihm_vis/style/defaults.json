@@ -1,20 +1,22 @@
 {
 	"macromolecule": {
-		"color_params" : {
-			"color": "white",
-				"custom": {
-					"molstar_use_default_coloring": true
-				}
-		},
+		"default": {
+			"color_params" : {
+				"color": "white",
+					"custom": {
+						"molstar_use_default_coloring": true
+					}
+			},
 
-                "representation_params" : {
-			"type": "cartoon"
-		},
+			"representation_params" : {
+				"type": "cartoon"
+			},
 
-		"opacity_params" : {
-			"opacity": 1.0
+			"opacity_params" : {
+				"opacity": 1.0
+			}
 		}
-	},
+        },
 
 	"component": {
 

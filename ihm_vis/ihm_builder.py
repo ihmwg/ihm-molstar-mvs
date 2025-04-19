@@ -510,13 +510,10 @@ class IHM_Builder:
     @classmethod
     def visualize_distance(cls, structure, distance):
 
-        start_atom = structure.component(selector=distance.start_selector)
-        end_atom = structure.component(selector=distance.end_selector)
-
         if "label_template" in distance.distance_params:
             distance.distance_params["label_template"] = distance.distance_params["label_template"].format(**distance.label_keys)
 
-        prim = structure.primitives().distance(start=start_atom, end=end_atom,
+        prim = structure.primitives().distance(start=distance.start_selector, end=distance.end_selector,
                                                **distance.distance_params)
 
         return prim
