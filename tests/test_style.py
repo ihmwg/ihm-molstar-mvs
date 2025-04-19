@@ -17,6 +17,20 @@ def dict_equality(dict_A, dict_B):
 
     return dict_A_str == dict_B_str
 
+##############################################################
+# test files
+############
+
+TEST_ROOT = Path("__file__").parent.resolve()
+
+TEST_JSON_FILE = TEST_ROOT / "test.json"
+assert TEST_JSON_FILE.exists()
+TEST_JSON_FILE = str(TEST_JSON_FILE)
+
+TEST_YAML_FILE = TEST_ROOT / "test.yaml"
+assert TEST_YAML_FILE.exists()
+TEST_YAML_FILE = str(TEST_YAML_FILE)
+
 
 ##############################################################
 # user style example
@@ -164,15 +178,12 @@ def test_set_style_and_reset_style():
 
 def test_set_style_from_json():
 
-    test_json_file = Path("test.json")
-    assert test_json_file.exists()
-
     # Manually clear
     style.USER_STYLE = {}
 
-    style.set_style_from_json(str(test_json_file.resolve()))
+    style.set_style_from_json(TEST_JSON_FILE)
 
-    with open(test_json_file, "r") as f:
+    with open(TEST_JSON_FILE, "r") as f:
         test_style = json.load(f)
 
     assert dict_equality(test_style, style.USER_STYLE)
@@ -183,15 +194,12 @@ def test_set_style_from_json():
 
 def test_set_style_from_yaml():
 
-    test_yaml_file = Path("test.yaml")
-    assert test_yaml_file.exists()
-
     # Manually clear
     style.USER_STYLE = {}
 
-    style.set_style_from_yaml(str(test_yaml_file.resolve()))
+    style.set_style_from_yaml(TEST_YAML_FILE)
 
-    with open(test_yaml_file, "r") as f:
+    with open(TEST_YAML_FILE, "r") as f:
         test_style = yaml.safe_load(f)
 
     assert dict_equality(test_style, style.USER_STYLE)
