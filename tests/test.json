@@ -1,0 +1,9 @@
+{
+	"component": {
+  		"violated": {
+    			"color_params": {
+      				"color": "red"
+			}
+		}
+	}
+}
