@@ -4,7 +4,7 @@
 from typing import Dict, Callable
 import pandas as pd
 
-from ihm_vis.utils.filters import get_solved_distance
+from ihm_vis.utils.restraint_filters import get_solved_distance
 
 ###################################################################################################
 BUILTIN_SUB_STYLE_FUNCS: Dict[str, Callable] = {}
