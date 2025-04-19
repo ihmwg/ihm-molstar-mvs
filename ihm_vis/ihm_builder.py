@@ -13,11 +13,9 @@ from urllib.parse import urlparse
 import requests
 import io
 
-from ihm_vis.style import DEFAULT, apply_style_defaults
-from ihm_vis.filters import BUILTIN_FILTER_FUNCS
-from ihm_vis.sub_style_modes import BUILTIN_SUB_STYLE_FUNCS
+from ihm_vis.style import DEFAULT, StyleDict
 from ihm_vis.utils import restraint_type_to_symbol
-from ihm_vis.local_file import LocalFile
+from ihm_vis.utils.local_file import LocalFile
 
 class IHM_Builder:
 
@@ -36,40 +34,40 @@ class IHM_Builder:
                            "restraint_type": "str",
                            }
 
-    def __init__(self, source: str|Path, mvs_builder: Optional=None, structure_index: int=0, format: str="mmcif", macromolecule_selector: str="polymer", port: int=8003):
+    def __init__(self, source: str|Path, structure_index: int=0, format: str="mmcif", macromolecule_selector: str="polymer", port: int=8003):
         """
         """
-
         self.source = source
+        self.format = format
+        self.structure_index = structure_index
+        self.macromolecule_selector = macromolecule_selector
 
+        # Depending on source (url vs local file)
+        # read in the cif file
         if urlparse(source).scheme in ("http", "https"):
             self.source_type = "url"
 
             self.local_file = None
             self.url = source
-            self.cif = self.read_cif_url(source)
+            self.cif = self.read_cif_url(source, self.structure_index)
 
         elif Path(source).exists():
             self.source_type = "file"
 
             self.local_file = LocalFile(source, port)
             self.url = self.local_file.url
-            self.cif = self.read_cif_file(source)
+            self.cif = self.read_cif_file(source, self.structure_index)
 
         else:
             raise ValueError("Invalid source: must either be a valid URL or a local file path")
 
 
-        # Set up MolViewSpec underlying
-        # builder and basic environment
-        if mvs_builder is not None:
-            self.mvs_builder = mvs_builder
-        else:
-            self.mvs_builder = mvs.create_builder()
-
-        self.macromolecule_selector = macromolecule_selector
-        self.structure = self.mvs_builder.download(url=self.url).parse(format=format).assembly_structure()
-        self.macromolecule_component = self.structure.component(selector=self.macromolecule_selector)
+        # MVS does not currently support "updating" a representation
+        # while there are other tricks to back-track to a previous state,
+        # it is simpler to keep an intermediate state here
+        # and only call into MVS once we are ready to write the mvsj
+        self.state = StyleDict()
+        self.state.set_macromolecule_style(selector=self.macromolecule_selector)
 
         # Setup for restraint_df
         cols = {colname : pd.Series(dtype=t) for colname, t in self.restraint_df_schema.items()}
@@ -264,17 +262,20 @@ class IHM_Builder:
     def filter_restraints(self, filter_func: str|Callable, **kwargs) -> pd.DataFrame:
         """
         """
+        # avoid circular imports
+        from ihm_vis.utils.filters import BUILTIN_FILTER_FUNCS
+
         if isinstance(filter_func, str):
             _filter_func = BUILTIN_FILTER_FUNCS.get(filter_func, None)
 
  
             if _filter_func is None:
-                raise ValueError(f"The requested built-in filter_func ({filter_func}) could not be found. See ihm_vis.filters")
+                raise ValueError(f"The requested built-in filter_func ({filter_func}) could not be found. See ihm_vis.filters for availible functions")
 
         else:
             _filter_func = filter_func
 
-        self.restraint_df = _filter_func(self, **kwargs)
+        self.restraint_df = _filter_func(self.restraint_df, **kwargs)
         return self.restraint_df
 
 
@@ -283,8 +284,7 @@ class IHM_Builder:
     # Visualization Functions
     #########################
 
-    @apply_style_defaults
-    def visualize_macromolecule(self, 
+    def set_macromolecule_style(self, 
                                 representation_params: Optional[dict[str, str]]=DEFAULT, 
                                 color_params: Optional[dict[str, str]]=DEFAULT, 
                                 opacity_params: Optional[dict[str, str]]=DEFAULT):
@@ -301,38 +301,13 @@ class IHM_Builder:
         ------
             TypeError: Parameter passed to MolViewSpec is not supported
         """
-        rep = self.macromolecule_component.representation(**representation_params)
 
-        if color_params:
-            rep.color(**color_params)
+        self.state.set_macromolecule_state(selector=self.macromolecule_selector,
+                                representation_params=representation_params,
+                                color_params=color_params,
+                                opacity_params=opacity_params)
 
-        if opacity_params:
-            rep.opacity(**opacity_params)
-
-
-    def get_component(expression):
-
-        if hasattr(expression, "dump_model_json"):
-            exp = expression.dump_model_json()
-        else:
-            exp = expression
-
-        if not exp in self.residue_components:
-            self.components[exp] = self.structure.component(selector=expression)
-
-        return self.components[exp]
-
-
-    def get_residue_rep(expression):
-        exp = expression.dump_model_json()
-        if not exp in self.residue_reps:
-            strucutre = get_residue_component(expression)
-
-            return structure.representation()
-
-
-    @apply_style_defaults
-    def visualize_restraint(self,
+    def set_single_restraint_style(self,
 
                             start_asym_id: str|int, 
                             start_seq_id: int, 
@@ -349,7 +324,7 @@ class IHM_Builder:
                             color_params: Optional[Dict[str, str]]=DEFAULT,
                             opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             distance_params: Optional[Dict[str, str]]=DEFAULT,
-                            tube_params: Optional[Dict[str, str]]=DEFAULT,
+                            label_keys={},
 
                             sub_style="default",
 
@@ -409,47 +384,70 @@ class IHM_Builder:
                                            end_label_seq_id=end_seq_id,
                                            label_atom_id=end_atom_id)
 
-        start_component = self.get_component(start_residue)
-        start_rep = start_component.representation(**representation_params)
-        if color_params:
-            start_rep.color(**color_params)
-        if opacity_params:
-            start_rep.opacity(**opacity_params)
 
-        end_component = self.get_component(end_residue)
-        end_rep = end_component.representation(**representation_params)
-        if color_params:
-            end_rep.color(**color_params)
-        if opacity_params:
-            end_rep.opacity(**opacity_params)
+        self.state.set_component_style(
+                                selector=start_residue,
+                                representation_params=representation_params,
+                                color_params=color_params,
+                                opacity_params=opacity_params,
+                                sub_style=sub_style)
 
-        if distance_params:
-            if "tooltip" in distance_params:
-                distance_params["tooltip"] = distance_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
-
-            res = self.structure.primitives().distance(
-                    start=start_atom,
-                    end=end_atom,
-                    **distance_params)
-
-        if tube_params:
-            if "tooltip" in tube_params:
-                tube_params["tooltip"] = tube_params["tooltip"].format(restraint_type_symbol=restraint_type_to_symbol(restraint_type), distance=distance)
-
-            res = self.structure.primitives().tube(
-                    start=start_atom,
-                    end=end_atom,
-                    **tube_params)
-
-        if focus:
-            res.focus()
-
-        if macromolecule_opacity_params:
-            self.get_component("polymer").representation().opacity(**macromolecule_opacity_params)
+        self.state.set_component_style(
+                                selector=end_residue,
+                                representation_params=representation_params,
+                                color_params=color_params,
+                                opacity_params=opacity_params,
+                                sub_style=sub_style)
 
 
+        # Provide the distance, restraint type, and threshold symbol
+        # as automatic label_keys
+        if not "distance" in label_keys:
+            label_keys["distance"] = distance
 
-    def visualize_restraints(self, sub_style_func: Optional[str|Callable]="default", sub_style_func_kwargs: Optional[Dict[Any, Any]]=None, **kwargs):
+        if not "restraint_type" in label_keys:
+            label_keys["restraint_type"] = restraint_type
+
+        if not "restraint_type_symbol" in label_keys:
+            label_keys["restraint_type_symbol"] = restraint_type_to_symbol(restraint_type)
+
+        self.state.set_distance_style(start_selector=start_atom,
+                                 end_selector=end_atom,
+                                 distance_params=distance_params,
+                                 sub_style=sub_style,
+                                 **label_keys)
+
+        self.state.set_macromolecule_style(
+                                selector=self.macromolecule_selector,
+                                opacity_params=macromolecule_opacity_params)
+
+
+    def apply_sub_styles(self, sub_style_func, **sub_style_func_kwargs):
+
+        # Avoid circular imports
+        from ihm_vis.style.sub_style_modes import BUILTIN_SUB_STYLE_FUNCS
+
+        if isinstance(sub_style_func, str):
+            sub_style_func = BUILTIN_SUB_STYLE_FUNCS[sub_style_func]
+
+        if isinstance(sub_style_func, str):
+            _sub_style_func = BUILTIN_SUB_STYLE_FUNCS.get(sub_style_func, None)
+
+            if _sub_style_func is None:
+                raise ValueError(f"The requested built-in sub_style_func ({sub_style_func}) could not be found. See ihm_vis.sub_style_modes")
+
+        else:
+            _sub_style_func = sub_style_func
+
+        if sub_style_func_kwargs is None:
+            sub_style_func_kwargs = {}
+
+        self.restraint_df = _sub_style_func(self.restraint_df, **sub_style_func_kwargs)
+
+        return self.restraint_df
+
+
+    def set_all_restraint_styles(self, sub_style_col="sub_style", **kwargs):
         """
         Visualize all restraints.
 
@@ -471,26 +469,10 @@ class IHM_Builder:
             TypeError: Parameter passed to MolViewSpec is not supported
         """
 
-        if isinstance(sub_style_func, str):
-            sub_style_func = BUILTIN_SUB_STYLE_FUNCS[sub_style_func]
+        if not sub_style_col in self.restraint_df.columns:
+            restraint_df[sub_style_col] = "default"
 
-        if isinstance(sub_style_func, str):
-            _sub_style_func = BUILTIN_SUB_STYLE_FUNCS.get(sub_style_func, None)
-
-            if _sub_style_func is None:
-                raise ValueError(f"The requested built-in sub_style_func ({sub_style_func}) could not be found. See ihm_vis.sub_style_modes")
-
-        else:
-            _sub_style_func = sub_style_func
-
-        if sub_style_func_kwargs is None:
-            sub_style_func_kwargs = {}
-
-        sub_styles = _sub_style_func(self, **sub_style_func_kwargs)
-
-        _visualized_restraint = False
         for idx, row in self.restraint_df.iterrows():
-            _visualized_restraint = True
 
             restraint_info = {
                 "start_asym_id"  : row["asym_id_1"],
@@ -503,26 +485,69 @@ class IHM_Builder:
                 "distance"       : row["distance_threshold"],
                 "restraint_type" : row["restraint_type"],
 
-                "sub_style"      : sub_styles.loc[idx],
+                "sub_style"      : row[sub_style_col],
             }
 
-            self.visualize_restraint(**restraint_info, **kwargs)
+            self.set_single_restraint_style(**restraint_info, **kwargs)
 
     ###############################################################################################
     # Writing mvsj output files
     ###########################
 
+    @classmethod
+    def visualize_component(cls, structure, component):
+
+        rep = structure.component(selector=component.selector).representation(**component.representation_params)
+        
+        if component.color_params:
+            rep.color(**component.color_params)
+
+        if component.opacity_params:
+            rep.opacity(**component.opacity_params)
+
+        return rep
+
+    @classmethod
+    def visualize_distance(cls, structure, distance):
+
+        start_atom = structure.component(selector=distance.start_selector)
+        end_atom = structure.component(selector=distance.end_selector)
+
+        if "label_template" in distance.distance_params:
+            distance.distance_params["label_template"] = distance.distance_params["label_template"].format(**distance.label_keys)
+
+        prim = structure.primitives().distance(start=start_atom, end=end_atom,
+                                               **distance.distance_params)
+
+        return prim
+
+
     def to_mvsj(self, file_stem: str, title: Optional[str]="", **kwargs):
 
+        mvs_builder = mvs.create_builder()
+        structure = mvs_builder.download(url=self.url).parse(format=self.format).assembly_structure(model_index=self.structure_index)
+
+        # Macromolecule
+        self.visualize_component(structure, self.state.macromolecule)
+
+        # Components
+        for component in self.state.components.values():
+            self.visualize_component(structure, component)
+
+        # Distances
+        for distance in self.state.distances.values():
+            self.visualize_distance(structure, distance)
+        
+        
         if self.source_type == "file":
             with self.local_file.serve():
-                self.mvs_builder.save_state(destination=f"{file_stem}.mvsj", title=title, **kwargs)
+                mvs_builder.save_state(destination=f"{file_stem}.mvsj", title=title, **kwargs)
                 mvsj_to_mvsx(f"{file_stem}.mvsj", f"{file_stem}.mvsx", download_external=True)
 
             return Path(f"{file_stem}.mvsx")
 
         else:
-            self.mvs_builder.save_state(destination=f"{file_stem}.mvsj", title=title, **kwargs)
+            mvs_builder.save_state(destination=f"{file_stem}.mvsj", title=title, **kwargs)
 
             return Path(f"{file_stem}.mvsj")
 
