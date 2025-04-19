@@ -1,9 +1,0 @@
-{
-	"visualize_restraint": {
-		"violated": {
-			"color_params" : {
-				"color": "pink"
-			}
-		}
-	}
-}
