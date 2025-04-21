@@ -160,7 +160,7 @@ class IHM_Builder:
             raise ValueError(f"Failed to retrieve file from {url}. Input must be a valid url")
 
         f = io.StringIO(response.text)
-        PdbxReader(f).read(containers)
+        PdbxReader.PdbxReader(f).read(containers)
 
         return containers[structure_index]
 
