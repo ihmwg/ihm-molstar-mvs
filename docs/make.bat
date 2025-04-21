@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=restraint_vis
+set SPHINXPROJ=ihm_vis
 
 if "%1" == "" goto help
 

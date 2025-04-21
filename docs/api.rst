@@ -6,4 +6,4 @@ API Documentation
    :template: custom-module-template.rst
    :recursive:
 
-   restraint_vis
+   ihm_vis
