@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import yaml
 
+import ihm_vis
 from ihm_vis import style
 
 ##############################################################
@@ -21,7 +22,7 @@ def dict_equality(dict_A, dict_B):
 # test files
 ############
 
-TEST_ROOT = Path("__file__").parent.resolve()
+TEST_ROOT = (Path(ihm_vis.__file__).parent.parent / "tests").resolve()
 
 TEST_JSON_FILE = TEST_ROOT / "test.json"
 assert TEST_JSON_FILE.exists()
