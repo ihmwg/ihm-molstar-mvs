@@ -417,13 +417,14 @@ class IHM_Builder:
                             representation_params: Optional[Dict[str, str]]=DEFAULT,
                             color_params: Optional[Dict[str, str]]=DEFAULT,
                             opacity_params: Optional[Dict[str, str]]=DEFAULT,
+                            macromolecule_opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             distance_params: Optional[Dict[str, str]]=DEFAULT,
                             label_keys={},
 
                             sub_style="default",
 
                             focus: Optional[bool]=False,
-                            macromolecule_opacity_params: Optional[Dict[str, str]]=DEFAULT):
+                                   ):
 
 
         """
@@ -464,6 +465,7 @@ class IHM_Builder:
         macromolecule_opacity_params : dict, optional
             Adjust macromolecule opacity to highlight this restraint.
         """
+
 
         start_residue = ComponentExpression(label_asym_id=start_asym_id,
                                            beg_label_seq_id=start_seq_id,
@@ -516,7 +518,8 @@ class IHM_Builder:
                                  sub_style=sub_style,
                                  **label_keys)
 
-        self.state.set_macromolecule_style(
+        if macromolecule_opacity_params:
+            self.state.set_macromolecule_style(
                                 selector=self.macromolecule_selector,
                                 opacity_params=macromolecule_opacity_params)
 
@@ -574,7 +577,7 @@ class IHM_Builder:
         """
         Loop through all restraints and apply :ref:`ihm_vis.IHM_builder.set_single_restraint_style` to each.
 
-        If no sub_style column is present, all restraints will recieve "default" sub_style.
+        If no sub_style column is present, all restraints will recieve "default" sub_style. Note! the sub_style col will have NaNs filled with "default" to prevent issues of missing values.
 
         Parameters
         ----------
@@ -586,7 +589,9 @@ class IHM_Builder:
         """
 
         if not sub_style_col in self.restraint_df.columns:
-            restraint_df[sub_style_col] = "default"
+            self.restraint_df[sub_style_col] = "default"
+
+        self.restraint_df[sub_style_col] = self.restraint_df[sub_style_col].fillna("default")
 
         for idx, row in self.restraint_df.iterrows():
 
@@ -629,7 +634,7 @@ class IHM_Builder:
         """
 
         rep = structure.component(selector=component.selector).representation(**component.representation_params)
-        
+
         if component.color_params:
             rep.color(**component.color_params)
 

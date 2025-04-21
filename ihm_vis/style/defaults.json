@@ -30,6 +30,10 @@
 			"representation_params": {
 				"type": "ball_and_stick",
 				"size_factor": 0.7
+			},
+
+			"macromolecule_opacity_params": {
+				"opacity": 0.5
 			}
 		}
 	},

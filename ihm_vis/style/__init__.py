@@ -33,6 +33,10 @@ def _merge(base: Dict, *args: Dict):
         if isinstance(u, Default):
             continue
 
+        # Not an iterable, uhh
+        if not hasattr(u, "items"):
+            continue
+
         for k,v in u.items():
             
             if isinstance(v, Default):
@@ -85,40 +89,43 @@ class MacromoleculeStyle:
         self.opacity_params = params["opacity_params"]
 
 
-    def update(self, representation_params=DEFAULT, color_params=DEFAULT, opacity_params=DEFAULT):
+    def update(self, representation_params={}, color_params={}, opacity_params={}):
         self.representation_params = _merge(self.representation_params, representation_params)
         self.color_params = _merge(self.color_params, color_params)
         self.opacity_params = _merge(self.opacity_params, opacity_params)
 
 
 class ComponentStyle:
-    def __init__(self, selector, representation_params=DEFAULT, color_params=DEFAULT, opacity_params=DEFAULT, sub_style="default"):
+    def __init__(self, selector, representation_params=DEFAULT, color_params=DEFAULT, opacity_params=DEFAULT, macromolecule_opacity_params=DEFAULT, sub_style="default"):
 
         self.selector = selector
         self.sub_style = sub_style
 
         params = {"representation_params": representation_params,
                   "color_params": color_params,
-                  "opacity_params": opacity_params}
+                  "opacity_params": opacity_params,
+                  "macromolecule_opacity_params": macromolecule_opacity_params}
 
         params = resolve_style("component", params, sub_style=self.sub_style)
 
         self.representation_params = params["representation_params"]
         self.color_params = params["color_params"]
         self.opacity_params = params["opacity_params"]
+        self.macromolecule_opacity_params = params["macromolecule_opacity_params"]
 
 
-    def update(self, representation_params=DEFAULT, color_params=DEFAULT, opacity_params=DEFAULT, sub_style=None):
+    def update(self, representation_params={}, color_params={}, opacity_params={}, macromolecule_opacity_params={}, sub_style=None):
 
         # if sub_style has changed, need complete reinit
         if sub_style is not None and sub_style != self.sub_style:
-            self.__init__(self.selector, representation_params, color_params, opacity_params, sub_style)
+            self.__init__(self.selector, representation_params, color_params, opacity_params, macromolecule_opacity_params, sub_style)
 
         # otherwise just update
         else:
             self.representation_params = _merge(self.representation_params, representation_params)
             self.color_params = _merge(self.color_params, color_params)
             self.opacity_params = _merge(self.opacity_params, opacity_params)
+            self.macromolecule_opacity_params = _merge(self.macromolecule_opacity_params, macromolecule_opacity_params)
 
 
 class DistanceStyle:
@@ -134,11 +141,12 @@ class DistanceStyle:
 
         self.distance_params = params["distance_params"]
 
-    def update(self, distance_params=DEFAULT, sub_style=None, **label_keys):
+    def update(self, distance_params={}, sub_style=None, **label_keys):
 
         # if sub_style has changed, need complete reinit
         if sub_style is not None and sub_style != self.sub_style:
-            self.__init__(self.start_selector, self.end_selector, distance_params, sub_style, label_keys)
+            print("current sub style", self.sub_style, "new sub style", sub_style)
+            self.__init__(self.start_selector, self.end_selector, distance_params, sub_style, **label_keys)
 
         # otherwise just update
         else:
@@ -176,6 +184,7 @@ class StyleDict:
                               representation_params=DEFAULT, 
                               color_params=DEFAULT,
                               opacity_params=DEFAULT,
+                              macromolecule_opacity_params=DEFAULT,
                               sub_style="default"):
 
         if isinstance(selector, str):
@@ -193,6 +202,7 @@ class StyleDict:
                                                        representation_params,
                                                        color_params,
                                                        opacity_params,
+                                                       macromolecule_opacity_params,
                                                        sub_style)
 
         else:
@@ -200,7 +210,15 @@ class StyleDict:
                                                     representation_params,
                                                     color_params,
                                                     opacity_params,
+                                                    macromolecule_opacity_params,
                                                     sub_style)
+
+        # Little weird, but each component has the ability
+        # to also affect the macromolecule opacity
+        # so here, if a component has set a particular macromolecule opacity
+        # make that change refected on the macromolecule
+        if self.components[key].macromolecule_opacity_params:
+            self.macromolecule.update(opacity_params=self.components[key].macromolecule_opacity_params)
 
 
     def set_distance_style(self, start_selector, end_selector, distance_params=DEFAULT, sub_style="default", **label_keys):

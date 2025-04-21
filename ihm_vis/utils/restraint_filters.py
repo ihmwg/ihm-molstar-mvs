@@ -30,7 +30,7 @@ def first_n(df: pd.DataFrame, n: int=5) -> pd.DataFrame:
     df : pd.DataFrame
         The filtered dataframe
     """
-    return df.head(n)
+    return df.head(n).copy()
 
 BUILTIN_FILTER_FUNCS["first_n"] = first_n
 
@@ -52,7 +52,7 @@ def random_sample(df: pd.DataFrame, n: int=100, random_state: Optional[int]=None
     df : pd.DataFrame
         The filtered dataframe
     """
-    return df.sample(min(len(df), n), random_state=random_state)
+    return df.sample(min(len(df), n), random_state=random_state).copy()
 
 BUILTIN_FILTER_FUNCS["random_sample"] = random_sample
 
@@ -70,7 +70,7 @@ def across_chains(df: pd.DataFrame) -> pd.DataFrame:
     df : pd.DataFrame
         The filtered dataframe
     """
-    return df.loc[df["asym_id_1"] != df["asym_id_2"]]
+    return df.loc[df["asym_id_1"] != df["asym_id_2"]].copy()
 
 BUILTIN_FILTER_FUNCS["across_chains"] = across_chains 
 
@@ -99,7 +99,7 @@ def diversity_filter(df: pd.DataFrame) -> pd.DataFrame:
     stacked = pd.concat((df_a, df_b), ignore_index=True).sample(frac=1.0)
     to_keep = stacked.drop_duplicates(subset=["asym", "seq_id"])["original_index"].unique()
 
-    return df.loc[df.index.isin(to_keep)]
+    return df.loc[df.index.isin(to_keep)].copy()
 
 BUILTIN_FILTER_FUNCS["diversity_filter"] = diversity_filter 
 
@@ -141,7 +141,7 @@ def violated(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df = get_solved_distance(df)
-    return df.loc[df["compliant"] == False]
+    return df.loc[df["compliant"] == False].copy()
 
 BUILTIN_FILTER_FUNCS["violated"] = violated 
 
@@ -162,7 +162,7 @@ def compliant(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     df = get_solved_distance(df)
-    return df.loc[df["compliant"] == True]
+    return df.loc[df["compliant"] == True].copy()
 
 BUILTIN_FILTER_FUNCS["compliant"] = compliant 
 
@@ -195,7 +195,7 @@ def within_X_of(df: pd.DataFrame, X: float, position: np.ndarray | List) -> pd.D
     res1_dist = df.apply(lambda row: np.linalg.norm(position - np.array(row["atom_id_1_coords"])), axis=1)
     res2_dist = df.apply(lambda row: np.linalg.norm(position - np.array(row["atom_id_2_coords"])), axis=1)
 
-    return df.loc[(res1_dist < X) | (res2_dist < X)]
+    return df.loc[(res1_dist < X) | (res2_dist < X)].copy()
 
 BUILTIN_FILTER_FUNCS["within_X_of"] = within_X_of
 
