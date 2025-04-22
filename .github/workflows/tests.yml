@@ -28,8 +28,7 @@ jobs:
           run: pip install .[test]
 
         - name: Run tests
-          run: |
-          pytest -v --cov=ihm_vis --cov-report=xml --color=yes tests
+          run: pytest -v --cov=ihm_vis --cov-report=xml --color=yes tests
 
           uses: codecov/codecov-action@v5
           with:

@@ -41,6 +41,7 @@ dependencies = [
 [project.optional-dependencies]
 test = [
   "pytest>=6.1.2",
+  "pytest-cov",
 ]
 dev = [
     "jupyter", "pandas", "seaborn",
