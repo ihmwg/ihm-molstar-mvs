@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
+        os: [macOS-latest, ubuntu-latest] #, windows-latest] mmcif no windows build
         python-version: ["3.9", "3.10", "3.11"]
 
     steps:
