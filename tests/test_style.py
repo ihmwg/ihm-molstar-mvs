@@ -22,7 +22,9 @@ def dict_equality(dict_A, dict_B):
 # test files
 ############
 
-TEST_ROOT = (Path(ihm_vis.__file__).parent.parent / "tests").resolve()
+# Assume tests are always run 
+# at top level directory
+TEST_ROOT = Path("tests")
 
 TEST_JSON_FILE = TEST_ROOT / "test.json"
 assert TEST_JSON_FILE.exists()
