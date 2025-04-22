@@ -42,6 +42,8 @@ dependencies = [
 test = [
   "pytest>=6.1.2",
   "pytest-cov",
+  "pytest-html",
+  "genbadge[all]",
 ]
 dev = [
     "jupyter", "pandas", "seaborn",

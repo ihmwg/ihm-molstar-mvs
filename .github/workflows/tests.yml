@@ -28,12 +28,14 @@ jobs:
           run: pip install .[test]
 
         - name: Run tests
-          run: pytest -v --cov=ihm_vis --cov-report=xml --color=yes tests
+          run: pytest -v --cov=ihm_vis --junitxml=junit.xml --html=report.html
 
-        - uses: codecov/codecov-action@v5
-          with:
-              file: ./coverage.xml
-              flags: unittests
-              name: codecov-${{ matrix.os }}-py${{ matrix.python-version }}
+
+        # TODO 
+        # use genbadge or coverage-badge to 
+        # report the status of the tests
+        # but dont want to get sucked into that
+        # before doing other documentation
+
 
 
