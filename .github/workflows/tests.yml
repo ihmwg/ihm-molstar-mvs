@@ -30,7 +30,7 @@ jobs:
         - name: Run tests
           run: pytest -v --cov=ihm_vis --cov-report=xml --color=yes tests
 
-          uses: codecov/codecov-action@v5
+        - uses: codecov/codecov-action@v5
           with:
               file: ./coverage.xml
               flags: unittests
