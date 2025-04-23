@@ -68,8 +68,6 @@ This means any component we visualize will inherit this ball and stick represent
 Here, we have defined two sub_styles called "violated" and "compliant". The user can now pass `sub_style="violated"` 
 
 
-
-
 Main elements for developers
 ----------------------------
 - DEFAULT_STYLE, USER_STYLE are global style dictionaries
@@ -427,7 +425,6 @@ def set_style_from_yaml(file: str|Path):
 
 
 def set_style_from_file(file: str|Path):
-
     file = Path(file)
     if file.suffix == ".yaml" or file.suffix == ".yml":
         set_style_from_yaml(file)
