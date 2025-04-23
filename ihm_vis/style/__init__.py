@@ -311,6 +311,19 @@ def set_style_from_yaml(file: str|Path):
         USER_STYLE.update(yaml.safe_load(f))
 
 
+def set_style_from_file(file: str|Path):
+
+    file = Path(file)
+    if file.suffix == ".yaml" or file.suffix == ".yml":
+        set_style_from_yaml(file)
+
+    elif file.suffix == ".json":
+        set_style_from_json(file)
+
+    else:
+        raise ValueError("Please provide either a .yaml, .yml, or .json file with the requested style")
+
+
 def reset_style():
     """
     Remove all user-specified style preferences and return to defaults defined by restraint_vis/config/defaults.json
