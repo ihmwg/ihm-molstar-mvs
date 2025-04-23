@@ -1,19 +1,19 @@
 import pytest
-from ihm_vis import IHM_Builder
+from ihm_vis.ihm_builder import IHM_Builder
 from pathlib import Path
 import pandas as pd
-import tempfile
-import os
 
 ##################################
 # Tests for file parsing
 ##################################
 
-VALID_LOCAL_FILES = ["test_files/8zz1.cif", "test_data/8zzs.cif"]
+VALID_LOCAL_FILES = ["test_files/8zz1.cif", "test_files/8zzs.cif"]
 INVALID_LOCAL_FILES = ["test_files/invalid.cif", "cif.txt", "test_data/8zz1"]
 
-VALID_URLS = ["https://pdb-ihm.org/cif/9a3v.cif", "https://files.rcsb.org/view/9EV8.cif", "https://files.rcsb.org/view/8ZZ1.cif"]
-INVALID_URLS = ["https://pdb-ihm.org/cif/9a3v", "https://files.rcsb.org/view/9EV8", "http://invalid-url.org/file.cif"]
+VALID_URLS = ["https://pdb-ihm.org/cif/9a3v.cif", "https://files.rcsb.org/view/8ZZ1.cif"]
+INVALID_URLS = ["https://pdb-ihm.org/cif/9a3v", "https://files.rcsb.org/view/9EV8"]
+
+NO_CROSSLINK_CIFS = ["https://files.rcsb.org/view/9EV8.cif"]
 
 @pytest.mark.parametrize("file_path", VALID_LOCAL_FILES)
 def test_valid_local_file(file_path):
@@ -43,11 +43,19 @@ def test_all_valid_sources(source):
     builder = IHM_Builder(source=source)
     assert builder.cif is not None
 
-@pytest.mark.paramtrize("url", VALID_URLS)
-def test_null_coords():
+@pytest.mark.parametrize("url", VALID_URLS)
+def test_null_coords(url):
     builder = IHM_Builder(source=url)
     df = builder.get_cross_links()
     assert not df['atom_id_1_coords'].isnull().any(), "atom_id_1_coords has null values"
     assert not df['atom_id_2_coords'].isnull().any(), "atom_id_2_coords has null values"
 
 # Add test for empty dataframe when no restraints to visualize
+def test_no_cross_links():
+    """Test for when cif file has no crosslinks"""
+    builder = IHM_Builder(source="https://files.rcsb.org/view/9EV8.cif")
+    df = builder.get_cross_links()
+    assert df.empty
+    assert list(df.columns) == list(builder.restraint_df_schema.keys())
+
+# add test for cif with no atom_site or ihm_sphere_category
