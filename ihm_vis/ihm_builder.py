@@ -10,7 +10,7 @@ from molviewspec.mvsx_converter import mvsj_to_mvsx
 from pathlib import Path
 from mmcif.io import PdbxReader
 import pandas as pd
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 import requests
 import io
 
@@ -66,10 +66,12 @@ class IHM_Builder:
 
         # Depending on source (url vs local file)
         # read in the cif file
-        if urlparse(source).scheme in ("http", "https"):
+        source_parsed_as_url = urlparse(source)
+        if source_parsed_as_url.scheme in ("http", "https"):
             self.source_type = "url"
 
             self.local_file = None
+            self.basename = Path(unquote(source_parsed_as_url.path)).name
             self.url = source
             self.cif = self.read_cif_url(source, self.structure_index)
 
@@ -77,6 +79,7 @@ class IHM_Builder:
             self.source_type = "file"
 
             self.local_file = LocalFile(source, port)
+            self.basename = local_file.file_path.name
             self.url = self.local_file.url
             self.cif = self.read_cif_file(source, self.structure_index)
 
@@ -551,13 +554,13 @@ class IHM_Builder:
         """
 
         # Avoid circular imports
-        from ihm_vis.style.sub_style_modes import BUILTIN_SUB_STYLE_FUNCS
+        from ihm_vis.style.sub_style_modes import BUILTIN_SUB_STYLE_MODES
 
         if isinstance(sub_style_func, str):
-            sub_style_func = BUILTIN_SUB_STYLE_FUNCS[sub_style_func]
+            sub_style_func = BUILTIN_SUB_STYLE_MODES[sub_style_func]
 
         if isinstance(sub_style_func, str):
-            _sub_style_func = BUILTIN_SUB_STYLE_FUNCS.get(sub_style_func, None)
+            _sub_style_func = BUILTIN_SUB_STYLE_MODES.get(sub_style_func, None)
 
             if _sub_style_func is None:
                 raise ValueError(f"The requested built-in sub_style_func ({sub_style_func}) could not be found. See ihm_vis.style.sub_style_modes")
@@ -670,7 +673,7 @@ class IHM_Builder:
         return prim
 
 
-    def to_mvsj(self, destination: str|Path, title: Optional[str]="", **kwargs) -> Path:
+    def to_mvsj(self, destination: str|Path, title: Optional[str]=None, **kwargs) -> Path:
         """
         Render the current state to a MolViewSpec JSON (.mvsj or .mvsx) file.
 
@@ -681,7 +684,7 @@ class IHM_Builder:
         destination: str or Path
             output file name. Will update extension to 'mvsx' if local file source.
         title : str, optional
-            Title metadata to embed in the scene.
+            Title metadata to embed in the scene. (defaults to basename of CIF file input).
         **kwargs
             Additional arguments forwarded to `mvs_builder.save_state`.
 

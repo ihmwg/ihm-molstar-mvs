@@ -1,12 +1,89 @@
 """
-Helpers for setting global configuration
+Configuration management utilities for visualization styles.
+
+This module provides a system for defining, updating, and resolving style configurations 
+for macromolecular and component visualizations, including distances between components. 
+It supports hierarchical merging of default and user-specified styles from dictionaries, 
+JSON files, and YAML files. The system allows users to apply fine-grained control over 
+representation, color, and opacity parameters.
+
+Configuration Description
+--------
+The style system is built around “types” of visuals — macromolecule, component, and distance — each of which can have multiple sub_styles. The system is hierarchical and stored in a series of nested dictionaries of the form:
+
+.. code-block:: python
+
+    {
+    "<visual_type>": {
+        "<sub_style_name>": {   # All 
+            # parameter groups
+            "representation_params": { … },
+            "color_params":          { … },
+            "opacity_params":        { … },
+        },
+        # (optionally) other sub_styles for this visual_type
+    },
+    # next visual_type…
+    }
+
+
+
+The top level keys are for the "macromolecule", the main structure you are visualizing, the "component"s, which are the individual residues within a restraint, and "distance"s, the label primities drawn between the individual "component"s of the restraint.
+
+Why "component" instead of "residue"? We wanted to be more generic in case future IHM data will have restraints of different types. Though, the current functionality is geared toward cross-linking experiments and generally when we refer to "component"s in this documentation you can internalize that as "residue".
+
+The second level of keys defines a "sub_style" within that visual type category. There is always a base sub_style key named "default". This sets the default visualization of that type - for example the following sets the default visualization of any restraint residues to a blue ball and stick.
+
+.. code-block:: python
+
+    "component": {
+        "default": {
+            "representation_params": {"type": "ball_and_stick"}
+            "color_params": {"color": "blue"}
+        }
+    }
+
+
+This means any component we visualize will inherit this ball and stick representation unless explicitly overridden. However, sometimes we may want to have some components styled differently than others. To achieve this, the user can either pass specific parameters to the `IHM_Builder.set_single_restraint_style`, or can specify additional "sub_style" as follows:
+
+
+.. code-block:: python
+
+    "component": {
+        "default": {
+            "representation_params": {"type": "ball_and_stick"},
+            "color_params": {"color": "blue"}
+        },
+
+        "violated": {
+            "color_params": {"color": "red"}
+        }
+
+        "compliant": {
+            "color_params": {"color": "green"}
+        }
+    }
+
+
+Here, we have defined two sub_styles called "violated" and "compliant". The user can now pass `sub_style="violated"` 
+
+
+Main elements for developers
+----------------------------
+- DEFAULT_STYLE, USER_STYLE are global style dictionaries
+- _merge function is used to 
+
+Intended for use with restraint-based macromolecular visualization pipelines, where consistent, reusable,
+and customizable styling is essential.
+
+Example
 """
 
+
+
 from pathlib import Path
-import inspect
 from collections.abc import Mapping
-from typing import Dict
-import functools
+from typing import Dict, Any, Optional
 import json
 import yaml
 
@@ -27,6 +104,25 @@ with open(_default_config_file, "r") as f:
     DEFAULT_STYLE.update(json.load(f))
 
 def _merge(base: Dict, *args: Dict):
+    """
+    Recursively merge one or more dictionaries into a base dictionary.
+
+    Handles nested mappings and respects special `Default` placeholder objects 
+    by omitting or initializing values accordingly.
+
+    Parameters
+    ----------
+    base : dict
+        Base dictionary to merge into.
+    *args : dict
+        One or more dictionaries to merge into the base.
+
+    Returns
+    -------
+    dict
+        A new dictionary representing the merged result.
+    """
+
     d = base.copy()
 
     for u in args:
@@ -60,7 +156,26 @@ def _merge(base: Dict, *args: Dict):
     return d
 
 
-def resolve_style(type, params, sub_style=None):
+def resolve_style(type: str, params: Dict[str, Dict[Any, Any]], sub_style: Optional[str]=None):
+    """
+    Resolve a style dictionary by merging defaults, user settings, and runtime parameters.
+
+    Supports merging in a style hierarchy: global defaults → sub-style defaults → runtime parameters.
+
+    Parameters
+    ----------
+    type : str
+        The style type (e.g., "macromolecule", "component", "distance").
+    params : Dict[str, Dict[Any, Any]]
+        Runtime parameters to merge into the resolved style.
+    sub_style : str, optional
+        Optional sub-style to apply if defined in the style configuration.
+
+    Returns
+    -------
+    dict
+        The fully resolved style dictionary.
+    """
 
     defaults = DEFAULT_STYLE.get(type, {}).get("default", {})
     user = USER_STYLE.get(type, {}).get("default", {})
@@ -263,27 +378,30 @@ class StyleDict:
 
 def set_style(kwargs):
     """
-    Update default style with user preferences
+    Update the global user style dictionary with new preferences.
 
-    The style information is stored as a nested dictionary of {"function_name": {"arg": "default"}}. Therefore, to change the default restraint color to #f0624d you would call set_style({"visualize_restraint": {"color": "#f0624d"}}). Use the get_style function to return the current style dictionary and see availible function and argument names.
+    See :ref:`ihm_vis.style.sub_style_modes` module page for detailed structure of style dict hierachy
 
     Parameters
     ----------
-    kwargs: mappings of "function_name" : {"arg": "user_specified_default"}
+    kwargs : dict
+        Mapping of style types and their associated user-defined parameter overrides.
+        For example:
+        {"macromolecule": {"default": {"color_params": {"color": "blue"}}}}
 
     """
     USER_STYLE.update(kwargs)
 
 def set_style_from_json(file: str|Path):
     """
-    Update default style with user preferences from json file
+    Load and apply style preferences from a JSON file.
 
-    The style information is stored as a nested dictionary of {"function_name": {"arg": "default"}}. Therefore, to change the default restraint color to #f0624d you would call set_style({"visualize_restraint": {"color": "#f0624d"}}). Use the get_style function to return the current style dictionary and see availible function and argument names.
+    See :ref:`ihm_vis.style.sub_style_modes` module page for detailed structure of style dict hierachy
 
     Parameters
     ----------
-    file : json file containing mappings of "function_name" : {"arg": "user_specified_default"}
-
+    file : str or Path
+        Path to a JSON file containing user style definitions.
     """
 
     with open(file, "r") as f:
@@ -292,41 +410,50 @@ def set_style_from_json(file: str|Path):
 
 def set_style_from_yaml(file: str|Path):
     """
-    Update default style with user preferences from yaml file
+    Load and apply style preferences from a YAML file.
 
-    The style information is stored as a nested dictionary of {"function_name": {"arg": "default"}}. Therefore, to change the default restraint color to #f0624d you can provide a yaml file specifying the analogous dictionary structure. For example, th efollowing yaml would set the default color for the visualize_restraint function:
-
-    visualize_restraint:
-      color: "#f0624d"
-     
-     Use the get_style function to return the current style dictionary and see availible function and argument names.
+    See :ref:`ihm_vis.style.sub_style_modes` module page for detailed structure of style dict hierachy
 
     Parameters
     ----------
-    file : yaml file containing mappings of "function_name" : {"arg": "user_specified_default"}
-
+    file : str or Path
+        Path to a YAML file containing user style definitions.
     """
 
     with open(file, "r") as f:
         USER_STYLE.update(yaml.safe_load(f))
 
 
+def set_style_from_file(file: str|Path):
+    file = Path(file)
+    if file.suffix == ".yaml" or file.suffix == ".yml":
+        set_style_from_yaml(file)
+
+    elif file.suffix == ".json":
+        set_style_from_json(file)
+
+    else:
+        raise ValueError("Please provide either a .yaml, .yml, or .json file with the requested style")
+
+
 def reset_style():
     """
-    Remove all user-specified style preferences and return to defaults defined by restraint_vis/config/defaults.json
+    Clear all user-defined styles and revert to the default configuration.
+
+    This resets the `USER_STYLE` dictionary, leaving only the defaults defined by th package itself. 
     """
     USER_STYLE.clear()
 
 def get_style() -> Dict:
     """
-    Return dictionary of current style
+    Get the merged style configuration including defaults and user overrides.
 
-    This should not be used to modify the style, only to view. To update, see :func:`restraint_vis.config.set_style`
+    This is a copy and should not be used to modify the configuration directly.
 
     Returns
-    ______
-       style: Dict
-           current style dictionary
+    -------
+    dict
+        The current effective style configuration.
     """
     return _merge(DEFAULT_STYLE, USER_STYLE) 
 
