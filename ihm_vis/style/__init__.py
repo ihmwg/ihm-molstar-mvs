@@ -426,6 +426,19 @@ def set_style_from_yaml(file: str|Path):
         USER_STYLE.update(yaml.safe_load(f))
 
 
+def set_style_from_file(file: str|Path):
+
+    file = Path(file)
+    if file.suffix == ".yaml" or file.suffix == ".yml":
+        set_style_from_yaml(file)
+
+    elif file.suffix == ".json":
+        set_style_from_json(file)
+
+    else:
+        raise ValueError("Please provide either a .yaml, .yml, or .json file with the requested style")
+
+
 def reset_style():
     """
     Clear all user-defined styles and revert to the default configuration.

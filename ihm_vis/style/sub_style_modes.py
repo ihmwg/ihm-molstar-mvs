@@ -7,14 +7,14 @@ import pandas as pd
 from ihm_vis.utils.restraint_filters import get_solved_distance
 
 ###################################################################################################
-BUILTIN_SUB_STYLE_FUNCS: Dict[str, Callable] = {}
+BUILTIN_SUB_STYLE_MODES: Dict[str, Callable] = {}
 ###################################################################################################
 
 def default(df):
     df["sub_style"] = "default"
     return df
 
-BUILTIN_SUB_STYLE_FUNCS["default"] = default
+BUILTIN_SUB_STYLE_MODES["default"] = default
 
 ###################################################################################################
 
@@ -34,7 +34,7 @@ def violated_and_compliant(df):
 
     return df
 
-BUILTIN_SUB_STYLE_FUNCS["violated_and_compliant"] = violated_and_compliant
+BUILTIN_SUB_STYLE_MODES["violated_and_compliant"] = violated_and_compliant
 
 
 
@@ -51,5 +51,5 @@ def inter_and_intra_chain(df):
 
     return df
 
-BUILTIN_SUB_STYLE_FUNCS["inter_and_intra_chain"] = inter_and_intra_chain
+BUILTIN_SUB_STYLE_MODES["inter_and_intra_chain"] = inter_and_intra_chain
 

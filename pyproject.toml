@@ -33,6 +33,9 @@ dependencies = [
     "molviewspec@git+https://github.com/molstar/mol-view-spec.git#egg=Master&subdirectory=molviewspec",            
 ]
 
+[project.scripts]
+visualize_restraints = "ihm_vis.CLI.visualize_restraints:main"
+
 # Update the urls once the hosting is set up.
 #[project.urls]
 #"Source" = "https://github.com/<username>/restraint_vis/"
