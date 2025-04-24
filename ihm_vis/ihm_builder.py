@@ -79,7 +79,7 @@ class IHM_Builder:
             self.source_type = "file"
 
             self.local_file = LocalFile(source, port)
-            self.basename = local_file.file_path.name
+            self.basename = self.local_file.file_path.name
             self.url = self.local_file.url
             self.cif = self.read_cif_file(source, self.structure_index)
 
