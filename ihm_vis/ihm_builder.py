@@ -13,6 +13,7 @@ import pandas as pd
 from urllib.parse import urlparse, unquote
 import requests
 import io
+import warnings
 
 from ihm_vis.style import DEFAULT, StyleDict, ComponentStyle, DistanceStyle
 from ihm_vis.utils import restraint_type_to_symbol
@@ -244,6 +245,24 @@ class IHM_Builder:
     # Parsing different restraint types here #
     ##########################################
 
+    @classmethod
+    def remove_missing_endpoints(cls, restraint_df):
+
+        missing_endpoint = restraint_df["atom_id_1_coords"].isna() | restraint_df["atom_id_2_coords"] 
+
+        for _, row in restraint_df.loc[missing_endpoint].iterrows():
+
+            asym_id_1 = row["asym_id_1"]
+            seq_id_1 = row["seq_id_1"]
+            asym_id_2 = row["asym_id_2"]
+            seq_id_2 = row["seq_id_2"]
+
+            warnings.warn(f"Restraint between {asym_id_1}: {seq_id_1} and {asym_id_2}: {seq_iq_2} missing endpoint and will not be visualized")
+
+        return restraint_df.loc[~missing_endpoint].copy()
+
+
+
     def get_cross_links(self) -> pd.DataFrame:
         """
          Extract cross-link restraints from the loaded mmCIF and store in restraints_df attribute, returns a view.
@@ -303,8 +322,9 @@ class IHM_Builder:
         restraint_df['atom_id_1_coords'] = atom_id_1_coords
         restraint_df['atom_id_2_coords'] = atom_id_2_coords
 
-        
+        restraint_df = self.remove_missing_endpoints(restraint_df)
         self.restraint_df = pd.concat((self.restraint_df, restraint_df)).drop_duplicates()
+
         return restraint_df 
 
     
