@@ -257,7 +257,7 @@ class IHM_Builder:
             asym_id_2 = row["asym_id_2"]
             seq_id_2 = row["seq_id_2"]
 
-            warnings.warn(f"Restraint between {asym_id_1}: {seq_id_1} and {asym_id_2}: {seq_iq_2} missing endpoint and will not be visualized")
+            warnings.warn(f"Restraint between {asym_id_1}: {seq_id_1} and {asym_id_2}: {seq_id_2} missing endpoint and will not be visualized")
 
         return restraint_df.loc[~missing_endpoint].copy()
 
