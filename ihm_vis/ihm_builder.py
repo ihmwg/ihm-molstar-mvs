@@ -248,7 +248,7 @@ class IHM_Builder:
     @classmethod
     def remove_missing_endpoints(cls, restraint_df):
 
-        missing_endpoint = restraint_df["atom_id_1_coords"].isna() | restraint_df["atom_id_2_coords"] 
+        missing_endpoint = restraint_df["atom_id_1_coords"].isna() | restraint_df["atom_id_2_coords"].isna()
 
         for _, row in restraint_df.loc[missing_endpoint].iterrows():
 
