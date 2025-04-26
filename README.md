@@ -54,6 +54,10 @@ visualize_restraints https://pdb-ihm.org/cif/9a3v.cif
 
 This will create the file `9a3v.mvsj`, which when loaded into Mol* will visualize tissue transglutaminase 2 in complex with plasma fibronectin type III along with `50` of its `64` experimental cross-link restraints. 
 
+
+![Default rendering of 9a3v with visualize_restraints command](images/default_visualization.png)
+
+
 or if you have a local file
 
 ```bash
@@ -87,6 +91,10 @@ To differentiate between restraints, `ihm_vis` has a notion of `sub_styles`. Dif
 visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -s violated_and_compliant
 ```
 
+
+![Color restraints by violated_and_compliant](images/color_residues.png)
+
+
 The `-s` or `--sub_style_mode` argument specifies *how* the restraints should be differentiated. There are currently two available modes:
 
   - `violated_and_compliant`: differentiates between compliant and violated restraints
@@ -119,6 +127,9 @@ visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -s violated_and_compliant 
 The `-c` or `--style_file` flag is used to specify our custom style, resulting in the below visualization.
 
 
+![Make violated distances orange](images/orange_example.png)
+
+
 We can also affect the residues within a restraint. If we wanted to also color the residues within a restraint based on whether it was violated or compliant we can add the violated sub_style for "component"s. Note, precedence is taken by violated restraints when a residue particulates in multiple restraints.
 
 my_style.yaml
@@ -143,6 +154,8 @@ component:
 ```bash
 visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -s violated_and_compliant -c my_style.yaml
 ```
+
+![Color residues as well as tubes](images/color_residues.png)
 
 
 **Why did we have to say "custom: null"? And what would happen if we didn't?**
@@ -195,6 +208,10 @@ component:
       color: "green"
 ```
 
+
+![All residues as spacefill](images/spacefill.png)
+
+
 For more information on custom styling, see style api page
 
 
@@ -216,6 +233,7 @@ You can specify multiple `-f` arguments to chain the filters together. For examp
 visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -f compliant across_chains
 ```
 
+![Compliant AND inter chain](images/compliant_inter.png)
 
 #### Acknowledgements
  
