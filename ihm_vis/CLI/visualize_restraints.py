@@ -102,9 +102,10 @@ def main():
 
     parser.add_argument("-f", 
                         "--filter", 
-                        nargs="*", 
-                        choices=CLI_supported_filter_funcs, 
+                        nargs="+",
+                        action="append",
                         default=[],
+                        choices=CLI_supported_filter_funcs, 
                         help=f"Filter(s) to apply to restraint table. You can specify multiple to chain filters together.")
 
     parser.add_argument("-s", 
@@ -139,6 +140,10 @@ def main():
 
 
     args = parser.parse_args()
+    all_filters = []
+    for filter_sublist in args.filter:
+        all_filters.extend(filter_sublist)
+
 
     ###########################################################################
     # Driver func
@@ -146,7 +151,7 @@ def main():
 
     visualize(
         cif_file=args.cif_file,
-        filters=args.filter,
+        filters=all_filters,
         sub_style_mode=args.sub_style_mode,
         max_restraints=args.max_restraints,
         style_file=args.style_file,
