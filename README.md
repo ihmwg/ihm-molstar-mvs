@@ -81,7 +81,7 @@ The `-t` or `--title` argument will set the "title" in the mvsj metadata
 
 And the `-v` or `--verbose` flag will enable verbose output. 
 
-### Styling based on restraints
+### Styling based on restraints and user specified styles
 
 By default, the style of all restraints will be the same - ie there is no differentiation between violated and compliant restraints or inter vs intra chain restraints. 
 
@@ -181,7 +181,7 @@ Setting `custom: null` removes this parameter so it is not inherited from the de
 
 This hierarchical styling scheme is useful for easily controlling parameters for all "component"s. For example, the `size_factor` is set in the "component" default sub_style to ensure that the ball_and_stick representation of all residues is consistent. 
 
-To demonstrate this, we can also set all the residues to be visualized as cartoon instead of ball_and_stick, while still retaining their violated/compliant styling.
+To demonstrate this, we can also set all the residues to be visualized as spacefill instead of ball_and_stick, while still retaining their violated/compliant styling.
 
 
 my_style.yaml
@@ -194,7 +194,7 @@ distance:
 component:
   default:
     representation_params:
-        type: "cartoon"
+        type: "spacefill"
 
     color_params: 
       custom: null
@@ -234,6 +234,55 @@ visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -f compliant across_chains
 ```
 
 ![Compliant AND inter chain](images/compliant_inter.png)
+
+
+## All-in-one Example
+
+Showcase most of the features in one big example. Not intended to be the prettiest visualization, but shows many examples of customizability.
+
+my_style.yaml
+```yaml
+macromolecule:                  # set style for macromolecule
+    color_params:
+      color: "blue"             # set color to blue
+
+distance:                       # set style of distance marker 
+  violated:                     # sub_style of violated
+    distance_params: 
+      color: "orange"           # set color to orange
+
+component:                      # set style of residues at either end of restraint
+  default:                      # sub_style of default (inherited by all others)
+    representation_params:  
+        type: "spacefill"       # make spacefill 
+        size_factor: 0.75       # tweak the size a bit
+
+    color_params:               
+      custom: null              # override the ihm_vis default of color by atom
+
+  violated:                     # sub_style of violated
+    color_params: 
+      color: "orange"           # set color to orange
+
+  compliant:                    # sub_style of compliant
+    color_params:
+      color: "green"            # set color to green
+```
+
+
+```bash
+visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -f across_chains -s violated_and_compliant -c my_style.yaml
+```
+
+The `-f across_chains` filters to restraints whose endpoints are on different asym_ids. 
+
+The `-s violated_and_compliant` styles the restraints based on if they violate or comply with experimental distance measurements.
+
+The `-c my_style.yaml` provides our modified style.
+
+
+![All-in-one example](images/all_in_one.png)
+
 
 #### Acknowledgements
  
