@@ -92,7 +92,7 @@ visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -s violated_and_compliant
 ```
 
 
-![Color restraints by violated_and_compliant](images/color_residues.png)
+![Color restraints by violated_and_compliant](images/violated_and_compliant.png)
 
 
 The `-s` or `--sub_style_mode` argument specifies *how* the restraints should be differentiated. There are currently two available modes:
