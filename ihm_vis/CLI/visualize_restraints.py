@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, output, title, verbose=False):
+def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, output, title, verbose=False, random_state=27):
 
     # Set user style if provided
     if style_file is not None:
@@ -28,7 +28,11 @@ def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, out
     for _filter in filters:
         len_before = len(ihm_b.restraint_df)
 
-        if _filter == "random_sample" or _filter == "first_n":
+        if _filter == "random_sample":
+            if verbose: print(f"Applying {_filter} filter with n={max_restraints}")
+            ihm_b.filter_restraints(_filter, n=max_restraints, random_state=random_state)
+
+        elif _filter == "first_n":
             if verbose: print(f"Applying {_filter} filter with n={max_restraints}")
             ihm_b.filter_restraints(_filter, n=max_restraints)
 
@@ -43,7 +47,7 @@ def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, out
     # Further sample to max restraints if necessary
     if len(ihm_b.restraint_df) > max_restraints:
         if verbose: print(f"Randomly sampling remaining restraints ({len(ihm_b.restraint_df)}) to requested max_restraints ({max_restraints})")
-        ihm_b.filter_restraints("random_sample", n=max_restraints, random_state=27)
+        ihm_b.filter_restraints("random_sample", n=max_restraints, random_state=random_state)
 
     # if sub_style mode is requested
     if sub_style_mode is not None:
@@ -139,6 +143,13 @@ def main():
                        default=False,
                        help="Verbose outputs")
 
+    parser.add_argument("--random_state",
+                       type=str,
+                       default=27,
+                       help="random state for reproducible random sampling. Defaults to 27.")
+
+
+
 
     args = parser.parse_args()
     all_filters = []
@@ -159,4 +170,5 @@ def main():
         output=args.output,
         title=args.title,
         verbose=args.verbose,
+        random_state=args.random_state,
     )

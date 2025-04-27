@@ -442,7 +442,7 @@ class IHM_Builder:
                             opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             macromolecule_opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             distance_params: Optional[Dict[str, str]]=DEFAULT,
-                            label_keys={},
+                            label_keys=None,
 
                             sub_style="default",
 
@@ -526,6 +526,9 @@ class IHM_Builder:
 
         # Provide the distance, restraint type, and threshold symbol
         # as automatic label_keys
+        if label_keys is None:
+            label_keys = {}
+
         if not "distance" in label_keys:
             label_keys["distance"] = distance
 
@@ -534,6 +537,7 @@ class IHM_Builder:
 
         if not "restraint_type_symbol" in label_keys:
             label_keys["restraint_type_symbol"] = restraint_type_to_symbol(restraint_type)
+
 
         self.state.set_distance_style(start_selector=start_atom,
                                  end_selector=end_atom,

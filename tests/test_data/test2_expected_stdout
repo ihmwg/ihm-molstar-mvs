@@ -1,0 +1,11 @@
+Setting style from: my_style.yaml
+Initialized IHM_Builder from url
+Read 64 restraints
+Applying across_chains filter
+	removed 57 restraints
+Applied sub_style_mode violated_and_compliant resulting in...
+	compliant: 6 restraints
+	violated: 1 restraints
+Applied styles to 7 restraints
+Writing output to 9a3v.mvsj with title 9a3v.cif
+DONE

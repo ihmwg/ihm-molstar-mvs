@@ -345,7 +345,7 @@
                           "dash_length": 0.1,
                           "color": "green",
                           "kind": "distance_measurement",
-                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
                           "label_size": 0.0
                         }
                       }
@@ -374,7 +374,7 @@
                           "dash_length": 0.1,
                           "color": "green",
                           "kind": "distance_measurement",
-                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
                           "label_size": 0.0
                         }
                       }
@@ -403,7 +403,7 @@
                           "dash_length": 0.1,
                           "color": "green",
                           "kind": "distance_measurement",
-                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
                           "label_size": 0.0
                         }
                       }
@@ -432,7 +432,7 @@
                           "dash_length": 0.1,
                           "color": "green",
                           "kind": "distance_measurement",
-                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
                           "label_size": 0.0
                         }
                       }
@@ -461,7 +461,7 @@
                           "dash_length": 0.1,
                           "color": "green",
                           "kind": "distance_measurement",
-                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
                           "label_size": 0.0
                         }
                       }
@@ -490,7 +490,7 @@
                           "dash_length": 0.1,
                           "color": "orange",
                           "kind": "distance_measurement",
-                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
                           "label_size": 0.0
                         }
                       }
@@ -506,7 +506,7 @@
   },
   "metadata": {
     "title": "9a3v.cif",
-    "timestamp": "2025-04-27T01:57:05.933493+00:00",
+    "timestamp": "2025-04-27T02:44:57.588646+00:00",
     "version": "1.4"
   }
 }

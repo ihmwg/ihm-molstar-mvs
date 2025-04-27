@@ -18,7 +18,7 @@ TEST_ROOT = (Path(".") / "tests").resolve()
 
             # Test2 - all-in-one example from Readme
             ("test2",
-             "visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -f across_chains -s violated_and_compliant -c my_style.yaml",
+             "visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -v -f across_chains -s violated_and_compliant -c my_style.yaml",
              "9a3v.mvsj",
              ["my_style.yaml"])
 

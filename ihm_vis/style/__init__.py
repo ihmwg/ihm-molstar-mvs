@@ -86,6 +86,7 @@ from collections.abc import Mapping
 from typing import Dict, Any, Optional
 import json
 import yaml
+from copy import deepcopy
 
 # Default placeholder to differentiate from None value
 class Default:
@@ -148,7 +149,7 @@ def _merge(base: Dict, *args: Dict):
                 else:
                     d[k] = v
             else:
-                d[k] = v
+                d[k] = deepcopy(v)
 
     # Replace Default
     # with {} for all instances
@@ -260,7 +261,6 @@ class DistanceStyle:
 
         # if sub_style has changed, need complete reinit
         if sub_style is not None and sub_style != self.sub_style:
-            print("current sub style", self.sub_style, "new sub style", sub_style)
             self.__init__(self.start_selector, self.end_selector, distance_params, sub_style, **label_keys)
 
         # otherwise just update
