@@ -46,6 +46,7 @@ test = [
   "pytest>=6.1.2",
   "pytest-cov",
   "pytest-html",
+  "pytest-console-scripts",
   "genbadge[all]",
 ]
 dev = [
