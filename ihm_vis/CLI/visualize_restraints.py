@@ -2,6 +2,7 @@ from ihm_vis import IHM_Builder
 from ihm_vis import style
 import argparse
 import json
+from pathlib import Path
 
 def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, output, title, verbose=False):
 

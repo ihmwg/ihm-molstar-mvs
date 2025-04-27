@@ -305,6 +305,9 @@ class StyleDict:
         if isinstance(selector, str):
             key = selector
 
+        elif hasattr(selector, "model_dump_json"):
+            key = selector.model_dump_json()
+
         elif hasattr(selector, "json"):
             key = selector.json()
 
@@ -341,6 +344,9 @@ class StyleDict:
         if isinstance(start_selector, str):
             start_key = start_selector
 
+        elif hasattr(start_selector, "model_dump_json"):
+            start_key = start_selector.model_dump_json()
+
         elif hasattr(start_selector, "json"):
             start_key = start_selector.json()
 
@@ -350,6 +356,9 @@ class StyleDict:
 
         if isinstance(end_selector, str):
             end_key = end_selector
+
+        elif hasattr(end_selector, "model_dump_json"):
+            end_key = end_selector.model_dump_json()
 
         elif hasattr(end_selector, "json"):
             end_key = end_selector.json()
