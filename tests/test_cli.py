@@ -1,7 +1,17 @@
 from pathlib import Path
 import shutil
 import pytest
-import filecmp
+from ihm_vis import style
+
+# Some tests will modify the user's style
+# force a reload of the module to 
+# ensure previous tests dont affect
+# others
+@pytest.fixture(scope="function", autouse=True)
+def reset_user_style():
+    style.reset_style()
+    yield
+
 
 TEST_ROOT = (Path(".") / "tests").resolve()
 
@@ -20,9 +30,14 @@ TEST_ROOT = (Path(".") / "tests").resolve()
             ("test2",
              "visualize_restraints https://pdb-ihm.org/cif/9a3v.cif -v -f across_chains -s violated_and_compliant -c my_style.yaml",
              "9a3v.mvsj",
-             ["my_style.yaml"])
+             ["my_style.yaml"]),
 
 
+            # Test3 - local file
+            ("test3",
+             "visualize_restraints 9a3v.cif -v -t fromlocal -o myoutput",
+             "myoutput.mvsj",
+             ["9a3v.cif"]),
 
         ]
 )

@@ -124,7 +124,11 @@ def _merge(base: Dict, *args: Dict):
         A new dictionary representing the merged result.
     """
 
-    d = base.copy()
+    if isinstance(base, Default):
+        d = {}
+
+    else:
+        d = base.copy()
 
     for u in args:
         if isinstance(u, Default):
