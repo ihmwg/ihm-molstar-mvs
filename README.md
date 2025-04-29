@@ -81,6 +81,40 @@ The `-t` or `--title` argument will set the "title" in the mvsj metadata
 
 And the `-v` or `--verbose` flag will enable verbose output. 
 
+To see all command line options use `visualize_restraints --help`
+```
+usage: visualize_restraints [-h] [-n MAX_RESTRAINTS]
+                            [-f {first_n,random_sample,across_chains,within_chains,violated,compliant} [{first_n,random_sample,across_chains,within_chains,violated,compliant} ...]]
+                            [-s {violated_and_compliant,inter_and_intra_chain}] [-c STYLE_FILE] [-o OUTPUT] [-t TITLE] [-v] [--random_state RANDOM_STATE]
+                            cif_file
+
+Visualize CIF file structures with IHM restraint data using ihm_vis.
+
+positional arguments:
+  cif_file              Path or URL of CIF file
+
+options:
+  -h, --help            show this help message and exit
+  -n MAX_RESTRAINTS, --max_restraints MAX_RESTRAINTS
+                        Maximum number of restraints to visualize, this value will be used if the 'first_n' or 'random_sample' filters are applied.
+  -f {first_n,random_sample,across_chains,within_chains,violated,compliant} [{first_n,random_sample,across_chains,within_chains,violated,compliant} ...], --filter {first_n,random_sample,across_chains,within_chains,violated,compliant} [{first_n,random_sample,across_chains,within_chains,violated,compliant} ...]
+                        Filter(s) to apply to restraint table. You can specify multiple to chain filters together.
+  -s {violated_and_compliant,inter_and_intra_chain}, --sub_style_mode {violated_and_compliant,inter_and_intra_chain}
+                        Sub-style mode for coloring on a per-restraint basis
+  -c STYLE_FILE, --style_file STYLE_FILE
+                        Optional YAML or JSON file to customize visual style of macromolecule, restraint residues, or restraint distance primitives
+  -o OUTPUT, --output OUTPUT
+                        Output file name. Note! when using a local file a .mvsx archive will be created bundling the .mvsj file with the CIF file. Defaults to CIF file
+                        stem.
+  -t TITLE, --title TITLE
+                        Title for mvsj file. Defaults to input name of input CIF file.
+  -v, --verbose         Verbose outputs
+  --random_state RANDOM_STATE
+                        random state for reproducible random sampling. Defaults to 27.
+```
+
+                        
+
 ### Styling based on restraints and user specified styles
 
 By default, the style of all restraints will be the same - ie there is no differentiation between violated and compliant restraints or inter vs intra chain restraints. 
