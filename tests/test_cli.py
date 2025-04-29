@@ -39,6 +39,13 @@ TEST_ROOT = (Path(".") / "tests").resolve()
              "myoutput.mvsj",
              ["9a3v.cif"]),
 
+            # Test4 - file without restraints
+            ("test4",
+             "visualize_restraints https://files.rcsb.org/download/9BDT.cif -v",
+             "9BDT.mvsj",
+             []),
+
+ 
         ]
 )
 def test_cli(script_runner, tmp_path, monkeypatch,
