@@ -86,6 +86,7 @@ from collections.abc import Mapping
 from typing import Dict, Any, Optional
 import json
 import yaml
+from copy import deepcopy
 
 # Default placeholder to differentiate from None value
 class Default:
@@ -123,7 +124,11 @@ def _merge(base: Dict, *args: Dict):
         A new dictionary representing the merged result.
     """
 
-    d = base.copy()
+    if isinstance(base, Default):
+        d = {}
+
+    else:
+        d = base.copy()
 
     for u in args:
         if isinstance(u, Default):
@@ -148,7 +153,7 @@ def _merge(base: Dict, *args: Dict):
                 else:
                     d[k] = v
             else:
-                d[k] = v
+                d[k] = deepcopy(v)
 
     # Replace Default
     # with {} for all instances
@@ -260,7 +265,6 @@ class DistanceStyle:
 
         # if sub_style has changed, need complete reinit
         if sub_style is not None and sub_style != self.sub_style:
-            print("current sub style", self.sub_style, "new sub style", sub_style)
             self.__init__(self.start_selector, self.end_selector, distance_params, sub_style, **label_keys)
 
         # otherwise just update
@@ -305,6 +309,9 @@ class StyleDict:
         if isinstance(selector, str):
             key = selector
 
+        elif hasattr(selector, "model_dump_json"):
+            key = selector.model_dump_json()
+
         elif hasattr(selector, "json"):
             key = selector.json()
 
@@ -341,6 +348,9 @@ class StyleDict:
         if isinstance(start_selector, str):
             start_key = start_selector
 
+        elif hasattr(start_selector, "model_dump_json"):
+            start_key = start_selector.model_dump_json()
+
         elif hasattr(start_selector, "json"):
             start_key = start_selector.json()
 
@@ -350,6 +360,9 @@ class StyleDict:
 
         if isinstance(end_selector, str):
             end_key = end_selector
+
+        elif hasattr(end_selector, "model_dump_json"):
+            end_key = end_selector.model_dump_json()
 
         elif hasattr(end_selector, "json"):
             end_key = end_selector.json()

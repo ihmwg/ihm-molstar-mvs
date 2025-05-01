@@ -2,8 +2,9 @@ from ihm_vis import IHM_Builder
 from ihm_vis import style
 import argparse
 import json
+from pathlib import Path
 
-def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, output, title, verbose=False):
+def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, output, title, verbose=False, random_state=27):
 
     # Set user style if provided
     if style_file is not None:
@@ -27,7 +28,11 @@ def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, out
     for _filter in filters:
         len_before = len(ihm_b.restraint_df)
 
-        if _filter == "random_sample" or _filter == "first_n":
+        if _filter == "random_sample":
+            if verbose: print(f"Applying {_filter} filter with n={max_restraints}")
+            ihm_b.filter_restraints(_filter, n=max_restraints, random_state=random_state)
+
+        elif _filter == "first_n":
             if verbose: print(f"Applying {_filter} filter with n={max_restraints}")
             ihm_b.filter_restraints(_filter, n=max_restraints)
 
@@ -42,7 +47,7 @@ def visualize(cif_file, filters, sub_style_mode, max_restraints, style_file, out
     # Further sample to max restraints if necessary
     if len(ihm_b.restraint_df) > max_restraints:
         if verbose: print(f"Randomly sampling remaining restraints ({len(ihm_b.restraint_df)}) to requested max_restraints ({max_restraints})")
-        ihm_b.filter_restraints("random_sample", n=max_restraints, random_state=27)
+        ihm_b.filter_restraints("random_sample", n=max_restraints, random_state=random_state)
 
     # if sub_style mode is requested
     if sub_style_mode is not None:
@@ -102,9 +107,10 @@ def main():
 
     parser.add_argument("-f", 
                         "--filter", 
-                        nargs="*", 
-                        choices=CLI_supported_filter_funcs, 
+                        nargs="+",
+                        action="append",
                         default=[],
+                        choices=CLI_supported_filter_funcs, 
                         help=f"Filter(s) to apply to restraint table. You can specify multiple to chain filters together.")
 
     parser.add_argument("-s", 
@@ -137,8 +143,19 @@ def main():
                        default=False,
                        help="Verbose outputs")
 
+    parser.add_argument("--random_state",
+                       type=str,
+                       default=27,
+                       help="random state for reproducible random sampling. Defaults to 27.")
+
+
+
 
     args = parser.parse_args()
+    all_filters = []
+    for filter_sublist in args.filter:
+        all_filters.extend(filter_sublist)
+
 
     ###########################################################################
     # Driver func
@@ -146,11 +163,12 @@ def main():
 
     visualize(
         cif_file=args.cif_file,
-        filters=args.filter,
+        filters=all_filters,
         sub_style_mode=args.sub_style_mode,
         max_restraints=args.max_restraints,
         style_file=args.style_file,
         output=args.output,
         title=args.title,
         verbose=args.verbose,
+        random_state=args.random_state,
     )

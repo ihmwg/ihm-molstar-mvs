@@ -24,13 +24,13 @@ def dict_equality(dict_A, dict_B):
 
 # Assume tests are always run 
 # at top level directory
-TEST_ROOT = Path("tests")
+TEST_ROOT = (Path(".") / "tests").resolve()
 
-TEST_JSON_FILE = TEST_ROOT / "test.json"
+TEST_JSON_FILE = TEST_ROOT / "test_data" / "test.json"
 assert TEST_JSON_FILE.exists()
 TEST_JSON_FILE = str(TEST_JSON_FILE)
 
-TEST_YAML_FILE = TEST_ROOT / "test.yaml"
+TEST_YAML_FILE = TEST_ROOT / "test_data" / "test.yaml"
 assert TEST_YAML_FILE.exists()
 TEST_YAML_FILE = str(TEST_YAML_FILE)
 

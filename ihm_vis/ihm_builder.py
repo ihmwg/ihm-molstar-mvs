@@ -13,6 +13,7 @@ import pandas as pd
 from urllib.parse import urlparse, unquote
 import requests
 import io
+import warnings
 
 from ihm_vis.style import DEFAULT, StyleDict, ComponentStyle, DistanceStyle
 from ihm_vis.utils import restraint_type_to_symbol
@@ -291,6 +292,24 @@ class IHM_Builder:
     # Parsing different restraint types here #
     ##########################################
 
+    @classmethod
+    def remove_missing_endpoints(cls, restraint_df):
+
+        missing_endpoint = restraint_df["atom_id_1_coords"].isna() | restraint_df["atom_id_2_coords"].isna()
+
+        for _, row in restraint_df.loc[missing_endpoint].iterrows():
+
+            asym_id_1 = row["asym_id_1"]
+            seq_id_1 = row["seq_id_1"]
+            asym_id_2 = row["asym_id_2"]
+            seq_id_2 = row["seq_id_2"]
+
+            warnings.warn(f"Restraint between {asym_id_1}: {seq_id_1} and {asym_id_2}: {seq_id_2} missing endpoint and will not be visualized")
+
+        return restraint_df.loc[~missing_endpoint].copy()
+
+
+
     def get_cross_links(self) -> pd.DataFrame:
         """
          Extract cross-link restraints from the loaded mmCIF and store in restraints_df attribute, returns a view.
@@ -357,10 +376,10 @@ class IHM_Builder:
         restraint_df['atom_id_1_coords'] = atom_id_1_coords
         restraint_df['atom_id_2_coords'] = atom_id_2_coords
 
-        
+        restraint_df = self.remove_missing_endpoints(restraint_df)
         self.restraint_df = pd.concat((self.restraint_df, restraint_df)).drop_duplicates()
-        return restraint_df  
-
+        
+        return restraint_df 
     
     # Master method to parse all restraint types #
     ##############################################
@@ -476,7 +495,7 @@ class IHM_Builder:
                             opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             macromolecule_opacity_params: Optional[Dict[str, str]]=DEFAULT,
                             distance_params: Optional[Dict[str, str]]=DEFAULT,
-                            label_keys={},
+                            label_keys=None,
 
                             sub_style="default",
 
@@ -560,6 +579,9 @@ class IHM_Builder:
 
         # Provide the distance, restraint type, and threshold symbol
         # as automatic label_keys
+        if label_keys is None:
+            label_keys = {}
+
         if not "distance" in label_keys:
             label_keys["distance"] = distance
 
@@ -568,6 +590,7 @@ class IHM_Builder:
 
         if not "restraint_type_symbol" in label_keys:
             label_keys["restraint_type_symbol"] = restraint_type_to_symbol(restraint_type)
+
 
         self.state.set_distance_style(start_selector=start_atom,
                                  end_selector=end_atom,
