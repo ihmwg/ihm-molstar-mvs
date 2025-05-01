@@ -170,7 +170,84 @@ class IHM_Builder:
 
 
     @classmethod
-    def get_atom_coordinates(cls, container: PdbxReader.DataContainer, atom_id: str, comp_id: str, entity_id: str, asym_id: str, seq_id: str) -> Optional[Tuple[float, float, float]]:
+    def get_atom_coordinates(cls, atom_data: PdbxReader.DataCategory, atom_id: str, comp_id: str, entity_id: str, asym_id: str, seq_id: str) -> Optional[Tuple[float, float, float]]:
+        """
+        Retrieves atomic coordinates from 'atom_site' data category
+
+        Parameters
+        ----------
+        atom_data : PdbxReader.DataCategory
+            'atom_site' data category from corresponding mmCIF container.
+        atom_id : str
+            Label for the atom (e.g., "CA").
+        comp_id : str
+            Component identifier (residue name) to match.
+        entity_id : str
+            Entity identifier to match.
+        asym_id : str
+            Asymmetry (chain) identifier to match.
+        seq_id : str
+            Sequence number (label_seq_id) to match.
+
+        Returns
+        -------
+        coords : tuple of float or None
+            If found, returns (x, y, z) coordinates as floats; otherwise, None.
+        """
+        # iterate through rows in atom site table
+        for i in range(atom_data.getRowCount()):
+            # find match for crosslink atom coordinates
+            if (atom_data.getValue('label_atom_id', i) == atom_id and
+                atom_data.getValue('label_comp_id', i) == comp_id and
+                atom_data.getValue('label_entity_id', i) == entity_id and
+                atom_data.getValue('label_asym_id', i) == asym_id and
+                atom_data.getValue('label_seq_id', i) == seq_id):
+                x = float(atom_data.getValue('Cartn_x', i))
+                y = float(atom_data.getValue('Cartn_y', i))
+                z = float(atom_data.getValue('Cartn_z', i))
+                return (x, y, z)
+        return None
+    
+    @classmethod
+    def get_sphere_coordinates(cls, sphere_data: PdbxReader.DataCategory, entity_id: str, asym_id: str, seq_id: str) -> Optional[Tuple[float, float, float]]:
+        """
+        Retrieves closest primitive sphere object coordinates from 'ihm_sphere_obj_site' data category
+
+        Parameters
+        ----------
+        sphere_data : PdbxReader.DataCategory
+            'ihm_sphere_obj_site' data category from corresponding mmCIF container.
+        entity_id : str
+            Entity identifier to match.
+        asym_id : str
+            Asymmetry (chain) identifier to match.
+        seq_id : str
+            Sequence number (label_seq_id) to match.
+
+        Returns
+        -------
+        coords : tuple of float or None
+            If found, returns (x, y, z) coordinates as floats; otherwise, None.
+        """
+        # iterate through rows of ihm sphere obj site table
+        for i in range(sphere_data.getRowCount()):
+            # Must first find mathcing entity and asym ids
+            if (sphere_data.getValue('entity_id', i) == entity_id and
+                sphere_data.getValue('asym_id', i) == asym_id):
+                # Retrieve the sequence id range for the object
+                seq_start = int(sphere_data.getValue('seq_id_begin', i))
+                seq_end = int(sphere_data.getValue('seq_id_end', i))
+                if seq_start <= int(seq_id) <= seq_end:
+                    # Extract coordinates only when seq id falls within range
+                    x = float(sphere_data.getValue('Cartn_x', i))
+                    y = float(sphere_data.getValue('Cartn_y', i))
+                    z = float(sphere_data.getValue('Cartn_z', i))
+                    return (x, y, z)
+        return None
+
+
+    @classmethod
+    def get_coordinates(cls, container: PdbxReader.DataContainer, atom_id: str, comp_id: str, entity_id: str, asym_id: str, seq_id: str, granularity: str) -> Optional[Tuple[float, float, float]]:
         """
         Retrieve the Cartesian (x, y, z) coordinates of a specific atom.
 
@@ -197,48 +274,18 @@ class IHM_Builder:
         coords : tuple of float or None
             If found, returns (x, y, z) coordinates as floats; otherwise, None.
         """
-
         # Atom coordinates are in the 'atom_site' category
         atom_data = container.getObj('atom_site')
-        if atom_data is not None:
-            for i in range(atom_data.getRowCount()):
-                atom_ids = atom_data.getValue('label_atom_id', i)
-                comp_ids = atom_data.getValue('label_comp_id', i)
-                entity_ids = atom_data.getValue('label_entity_id', i)
-                asym_ids = atom_data.getValue('label_asym_id', i)
-                seq_ids = atom_data.getValue('label_seq_id', i)
-                coords_x = atom_data.getValue('Cartn_x', i)
-                coords_y = atom_data.getValue('Cartn_y', i)
-                coords_z = atom_data.getValue('Cartn_z', i)
-                # cross reference to ids from cross link
-                if (atom_ids == atom_id and
-                    comp_ids == comp_id and
-                    entity_ids == entity_id and
-                    asym_ids == asym_id and
-                    seq_ids == seq_id):
-                    x, y, z, = coords_x, coords_y, coords_z
-                    return (float(x), float(y), float(z)) # match found 
-            return None # no match
-
-        atom_data = container.getObj('ihm_sphere_obj_site')
-        if atom_data is not None: 
-            # Coordinates from primitive
-            for i in range(atom_data.getRowCount()):
-                entity_ids = atom_data.getValue('entity_id', i)
-                asym_ids = atom_data.getValue('asym_id', i)
-                seq_begin_ids = atom_data.getValue('seq_id_begin', i)
-                seq_end_ids = atom_data.getValue('seq_id_end', i)
-                coords_x = atom_data.getValue('Cartn_x', i)
-                coords_y = atom_data.getValue('Cartn_y', i)
-                coords_z = atom_data.getValue('Cartn_z', i)
-                # cross reference to ids from cross link
-                if (entity_ids == entity_id and
-                    asym_ids == asym_id and
-                    seq_begin_ids == seq_id or
-                    seq_end_ids == seq_id):
-                    x, y, z, = coords_x, coords_y, coords_z
-                    return (float(x), float(y), float(z)) # match found
-            return None # no match
+        # Coordinates from primitive in 'ihm_sphere_obj_site' category
+        sphere_data = container.getObj('ihm_sphere_obj_site')
+        if atom_data is None and sphere_data is None:
+            raise ValueError("Neither 'atom_site' nor 'ihm_sphere_obj_site' categories are available in the CIF file.")
+        # Call get_atom_coordinates when granularity is at atomic level
+        if atom_data is not None and granularity in ['by-residue', 'by-atom']:
+            return cls.get_atom_coordinates(atom_data, atom_id, comp_id, entity_id, asym_id, seq_id)
+        # Call get_sphere_coordinates when granulairty is at feature level
+        elif sphere_data is not None and granularity in ['by-residue', 'by-feature']:
+            return cls.get_sphere_coordinates(sphere_data, entity_id, asym_id, seq_id)
 
 
     ###############################################################################################
@@ -288,45 +335,51 @@ class IHM_Builder:
 
         # Iterate through each row of cross-link data
         restraints = []
+        # helper function for when no atom_id columns
+        def safe_get(column, row_idx):
+            return cross_link_data.getValue(column, row_idx) if column in cross_link_data.getAttributeList() else None
         for i in range(cross_link_data.getRowCount()):
+            granularity = safe_get("model_granularity", i)
+            atom_id_1 = safe_get("atom_id_1", i)
+            atom_id_2 = safe_get("atom_id_2", i)
+            # If atom_ids missing replace with CA for residues
+            if (not atom_id_1 or atom_id_1 in ['.']) and granularity == 'by-residue':
+                atom_id_1 = 'CA'
+            if (not atom_id_2 or atom_id_2 in ['.']) and granularity == 'by-residue':
+                atom_id_2 = 'CA'
             restraints.append((
                 cross_link_data.getValue("entity_id_1", i),
                 cross_link_data.getValue("asym_id_1", i),
                 cross_link_data.getValue("seq_id_1", i),
                 cross_link_data.getValue("comp_id_1", i),
-                cross_link_data.getValue("atom_id_1", i),
+                atom_id_1,
                 cross_link_data.getValue("entity_id_2", i),
                 cross_link_data.getValue("asym_id_2", i),
                 cross_link_data.getValue("seq_id_2", i),
                 cross_link_data.getValue("comp_id_2", i),
-                cross_link_data.getValue("atom_id_2", i),
-                cross_link_data.getValue("model_granularity", i),
+                atom_id_2,
+                granularity,
                 float(cross_link_data.getValue("distance_threshold", i)),
                 cross_link_data.getValue("restraint_type", i)))
 
-
-        #the list of restraints to a pandas DataFrame.
+        # Convert the list of restraints to a pandas DataFrame.
         restraint_df = pd.DataFrame(restraints, columns=self.restraint_df_schema.keys())
-        # If atom ids are not specified default to carbon alpha (CA)
-        restraint_df['atom_id_1'] = restraint_df['atom_id_1'].str.replace('.', 'CA', regex=False)
-        restraint_df['atom_id_2'] = restraint_df['atom_id_2'].str.replace('.', 'CA', regex=False)
         # Lists to store retrieved atom coordinates
         atom_id_1_coords = []
         atom_id_2_coords = []
         # Iterate through cross link in dataframe
         for index, row in restraint_df.iterrows():
             # Get coordinates for each atom in crosslink
-            atom_id_1_coords.append(self.get_atom_coordinates(self.cif, row['atom_id_1'], row['comp_id_1'], row['entity_id_1'], row['asym_id_1'], row['seq_id_1']))
-            atom_id_2_coords.append(self.get_atom_coordinates(self.cif, row['atom_id_2'], row['comp_id_2'], row['entity_id_2'], row['asym_id_2'], row['seq_id_2']))
+            atom_id_1_coords.append(self.get_coordinates(self.cif, row['atom_id_1'], row['comp_id_1'], row['entity_id_1'], row['asym_id_1'], row['seq_id_1'], row['model_granularity']))
+            atom_id_2_coords.append(self.get_coordinates(self.cif, row['atom_id_2'], row['comp_id_2'], row['entity_id_2'], row['asym_id_2'], row['seq_id_2'], row['model_granularity']))
         # Add coordinates to dataframe
         restraint_df['atom_id_1_coords'] = atom_id_1_coords
         restraint_df['atom_id_2_coords'] = atom_id_2_coords
 
         restraint_df = self.remove_missing_endpoints(restraint_df)
         self.restraint_df = pd.concat((self.restraint_df, restraint_df)).drop_duplicates()
-
+        
         return restraint_df 
-
     
     # Master method to parse all restraint types #
     ##############################################
