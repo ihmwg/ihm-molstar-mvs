@@ -1,0 +1,512 @@
+{
+  "kind": "single",
+  "root": {
+    "kind": "root",
+    "children": [
+      {
+        "kind": "download",
+        "params": {
+          "url": "https://pdb-ihm.org/cif/9a3v.cif"
+        },
+        "children": [
+          {
+            "kind": "parse",
+            "params": {
+              "format": "mmcif"
+            },
+            "children": [
+              {
+                "kind": "structure",
+                "params": {
+                  "type": "assembly",
+                  "model_index": 0
+                },
+                "children": [
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": "polymer"
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "cartoon"
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "blue"
+                            }
+                          },
+                          {
+                            "kind": "opacity",
+                            "params": {
+                              "opacity": 0.5
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 643,
+                        "end_label_seq_id": 643
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 121,
+                        "end_label_seq_id": 121
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 677,
+                        "end_label_seq_id": 677
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "orange"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 30,
+                        "end_label_seq_id": 30
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 590,
+                        "end_label_seq_id": 590
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 649,
+                        "end_label_seq_id": 649
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 22,
+                        "end_label_seq_id": 22
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "green"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 464,
+                        "end_label_seq_id": 464
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "spacefill",
+                          "size_factor": 0.75
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "orange"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 643,
+                            "end_label_seq_id": 643,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 649,
+                            "end_label_seq_id": 649,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 22,
+                            "end_label_seq_id": 22,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "green",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.3,
+                          "dash_length": 0.1,
+                          "color": "orange",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "title": "9a3v.cif",
+    "timestamp": "2025-04-27T02:44:57.588646+00:00",
+    "version": "1.4"
+  }
+}

@@ -1,0 +1,2639 @@
+{
+  "kind": "single",
+  "root": {
+    "kind": "root",
+    "children": [
+      {
+        "kind": "download",
+        "params": {
+          "url": "http://localhost:8003/9a3v.cif"
+        },
+        "children": [
+          {
+            "kind": "parse",
+            "params": {
+              "format": "mmcif"
+            },
+            "children": [
+              {
+                "kind": "structure",
+                "params": {
+                  "type": "assembly",
+                  "model_index": 0
+                },
+                "children": [
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": "polymer"
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "cartoon"
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {
+                              "color": "white"
+                            },
+                            "custom": {
+                              "molstar_use_default_coloring": true
+                            }
+                          },
+                          {
+                            "kind": "opacity",
+                            "params": {
+                              "opacity": 0.5
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 30,
+                        "end_label_seq_id": 30
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 22,
+                        "end_label_seq_id": 22
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 590,
+                        "end_label_seq_id": 590
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 598,
+                        "end_label_seq_id": 598
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 677,
+                        "end_label_seq_id": 677
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 47,
+                        "end_label_seq_id": 47
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 121,
+                        "end_label_seq_id": 121
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 124,
+                        "end_label_seq_id": 124
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 444,
+                        "end_label_seq_id": 444
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 468,
+                        "end_label_seq_id": 468
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 637,
+                        "end_label_seq_id": 637
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 669,
+                        "end_label_seq_id": 669
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 464,
+                        "end_label_seq_id": 464
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 437,
+                        "end_label_seq_id": 437
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 429,
+                        "end_label_seq_id": 429
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 671,
+                        "end_label_seq_id": 671
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 380,
+                        "end_label_seq_id": 380
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 166,
+                        "end_label_seq_id": 166
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 425,
+                        "end_label_seq_id": 425
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 434,
+                        "end_label_seq_id": 434
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 149,
+                        "end_label_seq_id": 149
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 319,
+                        "end_label_seq_id": 319
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 366,
+                        "end_label_seq_id": 366
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 205,
+                        "end_label_seq_id": 205
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 409,
+                        "end_label_seq_id": 409
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 562,
+                        "end_label_seq_id": 562
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 643,
+                        "end_label_seq_id": 643
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 585,
+                        "end_label_seq_id": 585
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 649,
+                        "end_label_seq_id": 649
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 640,
+                        "end_label_seq_id": 640
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 454,
+                        "end_label_seq_id": 454
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 65,
+                        "end_label_seq_id": 65
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 447,
+                        "end_label_seq_id": 447
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 674,
+                        "end_label_seq_id": 674
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "B",
+                        "beg_label_seq_id": 168,
+                        "end_label_seq_id": 168
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 663,
+                        "end_label_seq_id": 663
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 435,
+                        "end_label_seq_id": 435
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 314,
+                        "end_label_seq_id": 314
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 322,
+                        "end_label_seq_id": 322
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "component",
+                    "params": {
+                      "selector": {
+                        "label_asym_id": "A",
+                        "beg_label_seq_id": 232,
+                        "end_label_seq_id": 232
+                      }
+                    },
+                    "children": [
+                      {
+                        "kind": "representation",
+                        "params": {
+                          "type": "ball_and_stick",
+                          "size_factor": 0.7
+                        },
+                        "children": [
+                          {
+                            "kind": "color",
+                            "params": {},
+                            "custom": {
+                              "molstar_color_theme_name": "element-symbol"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 22,
+                            "end_label_seq_id": 22,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 598,
+                            "end_label_seq_id": 598,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 124,
+                            "end_label_seq_id": 124,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 468,
+                            "end_label_seq_id": 468,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 637,
+                            "end_label_seq_id": 637,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 669,
+                            "end_label_seq_id": 669,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 437,
+                            "end_label_seq_id": 437,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 429,
+                            "end_label_seq_id": 429,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 671,
+                            "end_label_seq_id": 671,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 380,
+                            "end_label_seq_id": 380,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 166,
+                            "end_label_seq_id": 166,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 425,
+                            "end_label_seq_id": 425,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 434,
+                            "end_label_seq_id": 434,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 149,
+                            "end_label_seq_id": 149,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 124,
+                            "end_label_seq_id": 124,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 319,
+                            "end_label_seq_id": 319,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 366,
+                            "end_label_seq_id": 366,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 205,
+                            "end_label_seq_id": 205,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 409,
+                            "end_label_seq_id": 409,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 319,
+                            "end_label_seq_id": 319,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 562,
+                            "end_label_seq_id": 562,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 643,
+                            "end_label_seq_id": 643,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 585,
+                            "end_label_seq_id": 585,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 22,
+                            "end_label_seq_id": 22,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 649,
+                            "end_label_seq_id": 649,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 643,
+                            "end_label_seq_id": 643,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 429,
+                            "end_label_seq_id": 429,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 380,
+                            "end_label_seq_id": 380,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 205,
+                            "end_label_seq_id": 205,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 30,
+                            "end_label_seq_id": 30,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 640,
+                            "end_label_seq_id": 640,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 669,
+                            "end_label_seq_id": 669,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 649,
+                            "end_label_seq_id": 649,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 454,
+                            "end_label_seq_id": 454,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 65,
+                            "end_label_seq_id": 65,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 649,
+                            "end_label_seq_id": 649,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 562,
+                            "end_label_seq_id": 562,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 447,
+                            "end_label_seq_id": 447,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 468,
+                            "end_label_seq_id": 468,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 640,
+                            "end_label_seq_id": 640,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 674,
+                            "end_label_seq_id": 674,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 166,
+                            "end_label_seq_id": 166,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 168,
+                            "end_label_seq_id": 168,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 429,
+                            "end_label_seq_id": 429,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 166,
+                            "end_label_seq_id": 166,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 124,
+                            "end_label_seq_id": 124,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 663,
+                            "end_label_seq_id": 663,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 677,
+                            "end_label_seq_id": 677,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 425,
+                            "end_label_seq_id": 425,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 464,
+                            "end_label_seq_id": 464,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 444,
+                            "end_label_seq_id": 444,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 435,
+                            "end_label_seq_id": 435,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 121,
+                            "end_label_seq_id": 121,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 168,
+                            "end_label_seq_id": 168,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 314,
+                            "end_label_seq_id": 314,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 322,
+                            "end_label_seq_id": 322,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 232,
+                            "end_label_seq_id": 232,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 366,
+                            "end_label_seq_id": 366,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 166,
+                            "end_label_seq_id": 166,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "B",
+                            "beg_label_seq_id": 47,
+                            "end_label_seq_id": 47,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <35.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "primitives",
+                    "params": {},
+                    "children": [
+                      {
+                        "kind": "primitive",
+                        "params": {
+                          "start": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 640,
+                            "end_label_seq_id": 640,
+                            "label_atom_id": "CA"
+                          },
+                          "end": {
+                            "label_asym_id": "A",
+                            "beg_label_seq_id": 590,
+                            "end_label_seq_id": 590,
+                            "label_atom_id": "CA"
+                          },
+                          "radius": 0.1,
+                          "dash_length": 0.1,
+                          "color": "black",
+                          "kind": "distance_measurement",
+                          "label_template": "Solved Distance: {{distance}}, Restraint Distance: <25.0",
+                          "label_size": 0.0
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "title": "fromlocal",
+    "timestamp": "2025-04-28T00:29:50.094363+00:00",
+    "version": "1.4"
+  }
+}

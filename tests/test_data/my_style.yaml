@@ -1,0 +1,27 @@
+macromolecule:                  # set style for macromolecule
+  default:                      # set style of default
+    color_params:
+      color: "blue"             # set color to blue
+      custom: null              # override the ihm_vis default to color by chain
+
+distance:                       # set style of distance marker
+  violated:                     # sub_style of violated
+    distance_params:
+      color: "orange"           # set color to orange
+
+component:                      # set style of residues at either end of restraint
+  default:                      # sub_style of default (inherited by all others)
+    representation_params:
+        type: "spacefill"       # make spacefill
+        size_factor: 0.75       # tweak the size a bit
+
+    color_params:
+      custom: null              # override the ihm_vis default of color by atom
+
+  violated:                     # sub_style of violated
+    color_params:
+      color: "orange"           # set color to orange
+
+  compliant:                    # sub_style of compliant
+    color_params:
+      color: "green"            # set color to green

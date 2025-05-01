@@ -1,0 +1,68 @@
+{
+	"macromolecule": {
+		"default": {
+			"color_params" : {
+				"color": "white",
+					"custom": {
+						"molstar_use_default_coloring": true
+					}
+			},
+
+			"representation_params" : {
+				"type": "cartoon"
+			},
+
+			"opacity_params" : {
+				"opacity": 1.0
+			}
+		}
+        },
+
+	"component": {
+
+		"default": {
+			"color_params": {
+				"custom": {
+					"molstar_color_theme_name": "element-symbol"
+				}
+			},
+
+			"representation_params": {
+				"type": "ball_and_stick",
+				"size_factor": 0.7
+			},
+
+			"macromolecule_opacity_params": {
+				"opacity": 0.5
+			}
+		}
+	},
+
+	"distance": {
+
+		"default": {
+
+			"distance_params": {
+				"radius": 0.1,
+				"dash_length": 0.1,
+				"color": "black",
+			        "label_template": "Solved Distance: {{{{distance}}}}, Restraint Distance: {restraint_type_symbol}{distance}",
+				"label_size": 0.0
+			}
+		},
+
+		"violated" : {
+			
+			"distance_params": {
+				"color": "red",
+				"radius": 0.3
+			}
+		},
+
+		"compliant": {
+			"distance_params": {
+				"color": "green"
+			}
+		}
+	}
+}
